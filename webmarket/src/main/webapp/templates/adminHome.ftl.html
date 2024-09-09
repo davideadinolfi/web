@@ -1,0 +1,42 @@
+<h1>DAJE</h1>
+<p>Logged in as ${logininfo.username}</p>
+<form method="post" action="adminHome">
+    <div class="container">
+        <div class="row">
+            <div class="four columns clabel">email:</div>
+            <div class="ten columns"> <input name="email" type="text"/>
+                
+            </div>
+            
+        </div>
+        <p>referrer : {referrer}</p>
+        <div class="row">
+            <div class="four columns clabel">password:</div>
+            <div class="ten columns"> <input name="password" type="password"/>
+            
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="four columns clabel">nome:</div>
+            <div class="ten columns"> <input name="nome" type="text"/>
+                
+            </div>
+
+            <div class="row">
+                <div class="four columns clabel">cognome:</div>
+                <div class="ten columns"> <input name="cognome" type="text"/>
+                    
+                </div>
+            
+            
+                    <label for="ruolo">ruolo :</label>
+                    <select id="ruolo" name="ruolo">
+                      <option value="admin">admin</option>
+                      <option value="tecnico">tecnico</option>
+                      <option value="utente">utente</option>
+                    </select>
+
+        <div class="row"><input value="register" name="register" type="submit"/></div>
+    </div>
+    </form>
