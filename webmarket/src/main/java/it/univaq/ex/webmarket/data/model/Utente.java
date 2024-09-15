@@ -7,9 +7,7 @@ package it.univaq.ex.webmarket.data.model;
 import it.univaq.framework.data.DataItem;
 
 public interface Utente extends DataItem<Integer> {
-    void setid(int id);
-
-    int getid();
+  
 
     String getNome();
 

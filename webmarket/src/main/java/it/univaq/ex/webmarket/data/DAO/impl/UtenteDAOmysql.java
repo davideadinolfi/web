@@ -39,7 +39,7 @@ public class UtenteDAOmysql extends DAO implements UtenteDAO{
             iUser = connection.prepareStatement("INSERT INTO utenti (email,password,nome,cognome,ruolo) VALUES(?,?,?,?,?)" ,Statement.RETURN_GENERATED_KEYS  );
             uUser = connection.prepareStatement("UPDATE utenti SET email=?,password=?,version=? WHERE ID=? and version=?");
         } catch (SQLException ex) {
-            throw new DataException("Error initializing newspaper data layer", ex);
+            throw new DataException("Error initializing utente data layer", ex);
         }
     }
 
@@ -77,7 +77,7 @@ public class UtenteDAOmysql extends DAO implements UtenteDAO{
             
             UtenteProxy a = (UtenteProxy) createUtente();
             
-            a.setid(rs.getInt("id"));
+            a.setKey(rs.getInt("id"));
             a.setNome(rs.getString("nome"));
             a.setPassword(rs.getString("password"));
             a.setCognome(rs.getString("cognome"));

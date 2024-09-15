@@ -1,0 +1,15 @@
+<p>ciaooooo</p>
+<#list listaRichieste as i>
+<div class="row">
+    <div class="four columns clabel">${i.note}  ${i.statoRichiesta} 
+        <#if i.tecnico??> 
+        ${i.tecnico.nome} ${i.tecnico.cognome} 
+        <#else>
+        tecnico non presente
+        </#if>
+        
+    
+    </div>
+    
+</div>
+</#list>

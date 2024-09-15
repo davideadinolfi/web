@@ -1,0 +1,19 @@
+<h1>crearichiesta</h1>
+<p>${logininfo.username}</p>
+<p>${categoria}</p>
+<form method="post" action="home">
+    <div class="container">
+    
+<#list caratteristiche as i>
+    <div class="row">
+        <div class="four columns clabel">${i.nome}</div>
+        <div class="ten columns"> <input name="${i.nome}" type="text"/>
+    </div>
+</#list>
+<div class="row">
+    <div class="four columns clabel">note</div>
+    <div class="ten columns"><input name="note"type="text"/></div> 
+</div>
+</div>
+<div class="row"><input value="richiedi" name="richiedi" type="submit"></div>
+</form>

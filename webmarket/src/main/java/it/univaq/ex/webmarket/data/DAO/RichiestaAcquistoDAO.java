@@ -3,6 +3,8 @@ package it.univaq.ex.webmarket.data.DAO;
 import it.univaq.ex.webmarket.data.model.RichiestaAcquisto;
 import it.univaq.ex.webmarket.data.model.StatoRichiesta;
 import it.univaq.framework.data.DataException;
+
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ public interface RichiestaAcquistoDAO {
     List<RichiestaAcquisto> getRichiesteAcquistoByTecnico(int tecnicoKey) throws DataException;
 
     // Memorizza o aggiorna una RichiestaAcquisto
-    void storeRichiestaAcquisto(RichiestaAcquisto richiestaAcquisto) throws DataException;
+    void storeRichiestaAcquisto(RichiestaAcquisto richiestaAcquisto) throws DataException, IOException;
 
     // Aggiorna lo stato di una RichiestaAcquisto
     void updateStatoRichiesta(int richiestaAcquistoKey, StatoRichiesta statoRichiesta) throws DataException;

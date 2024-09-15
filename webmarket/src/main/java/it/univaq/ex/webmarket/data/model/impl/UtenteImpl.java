@@ -22,17 +22,7 @@ public class UtenteImpl extends DataItemImpl<Integer> implements Utente {
         this.password = "";
         this.ruolo = Ruolo.UTENTE;
     }
-    @Override 
-    public Integer getKey() {
-        return new Integer(this.id);
-    }
-    @Override
-    public void setid(int id){
-        this.id=id;
-    }
-    public int getid(){
-        return this.id;
-    }
+ 
 
     @Override
     public String getNome() {

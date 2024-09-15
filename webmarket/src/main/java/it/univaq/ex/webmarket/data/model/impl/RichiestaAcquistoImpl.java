@@ -1,10 +1,13 @@
 package it.univaq.ex.webmarket.data.model.impl;
 
+import it.univaq.ex.webmarket.data.DAO.impl.WebmarketDataLayer;
 import it.univaq.ex.webmarket.data.model.Categoria;
 import it.univaq.ex.webmarket.data.model.RichiestaAcquisto;
 import it.univaq.ex.webmarket.data.model.StatoRichiesta;
 import it.univaq.ex.webmarket.data.model.Utente;
 import it.univaq.framework.data.DataItemImpl;
+import it.univaq.ex.webmarket.data.DAO.impl.WebmarketDataLayer;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class RichiestaAcquistoImpl extends DataItemImpl<Integer> implements RichiestaAcquisto {
@@ -12,7 +15,7 @@ public class RichiestaAcquistoImpl extends DataItemImpl<Integer> implements Rich
     private Utente ordinante;
     private Utente tecnico;
     private Categoria categoria;
-    private Date dataRichiesta;
+    private LocalDate dataRichiesta;
     private String note;
     private StatoRichiesta statoRichiesta;
 
@@ -21,7 +24,7 @@ public class RichiestaAcquistoImpl extends DataItemImpl<Integer> implements Rich
         this.ordinante = null;
         this.tecnico = null;
         this.categoria = null;
-        this.dataRichiesta = new Date();
+        this.dataRichiesta = null;
         this.note = "";
         this.statoRichiesta = StatoRichiesta.ATTESA_TECNICO;
     }
@@ -56,14 +59,24 @@ public class RichiestaAcquistoImpl extends DataItemImpl<Integer> implements Rich
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+    
+    public void setCategoria(int id){
+        //DA FARE
+        
+    }
+
+    public void setDataRichiesta(String s){
+        //DA FARE
+        this.dataRichiesta=null;
+    }
 
     @Override
-    public Date getDataRichiesta() {
+    public LocalDate getDataRichiesta() {
         return dataRichiesta;
     }
 
     @Override
-    public void setDataRichiesta(Date dataRichiesta) {
+    public void setDataRichiesta(LocalDate dataRichiesta) {
         this.dataRichiesta = dataRichiesta;
     }
 
@@ -73,8 +86,10 @@ public class RichiestaAcquistoImpl extends DataItemImpl<Integer> implements Rich
     }
 
     @Override
-    public void setNote(String note) {
+    public void setNote(String note){
+        if(note!=null)
         this.note = note;
+        else this.note ="NULL";
     }
 
     @Override
@@ -85,6 +100,40 @@ public class RichiestaAcquistoImpl extends DataItemImpl<Integer> implements Rich
     @Override
     public void setStatoRichiesta(StatoRichiesta statoRichiesta) {
         this.statoRichiesta = statoRichiesta;
+    
+    }
+
+    public void setOrdinante(int id){
+        //DA FARE
+        this.ordinante=null;
+    }
+
+    public void setTecnico(int id){
+        //DA FARE
+        this.tecnico=null;
+    }
+
+    public void setCategoria(String s){       
+    
+    }
+    
+
+    public void setStatoRichiesta(String s){
+        switch (s) {
+            case "ATTESA_TECNICO":
+            this.statoRichiesta=StatoRichiesta.ATTESA_TECNICO;
+            break;
+            case "ATTESA_ORDINANTE":
+            this.statoRichiesta=StatoRichiesta.ATTESA_ORDINANTE;
+            break;
+            case "ORDINATO":
+            this.statoRichiesta=StatoRichiesta.ORDINATO;
+                break;
+        case "CONCLUSO":
+        this.statoRichiesta=StatoRichiesta.CONCLUSO;
+            default:
+                break;
+        }
     }
 }
 

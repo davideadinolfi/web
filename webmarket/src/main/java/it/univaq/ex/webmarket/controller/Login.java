@@ -46,8 +46,7 @@ public class Login extends WebmarketBaseController {
     private void action_login(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("u");
         String password = request.getParameter("p");
-
-        if (!username.isEmpty() && !password.isEmpty()) {
+            if (!username.isEmpty() && !password.isEmpty()) {
            
                 Utente u;
                 try {
@@ -61,6 +60,7 @@ public class Login extends WebmarketBaseController {
                     //se la validazione ha successo
                     //if the identity validation succeeds
                     SecurityHelpers.createSession(request, username, u.getKey());
+                    request.getSession().setAttribute("user", u);
                     //se è stato trasmesso un URL di origine, torniamo a quell'indirizzo
                     //if an origin URL has been transmitted, return to it
                     

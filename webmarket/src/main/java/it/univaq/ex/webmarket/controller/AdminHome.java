@@ -60,7 +60,6 @@ public class AdminHome extends WebmarketBaseController{
                 action_register(request, response);
             }
             if(request.getParameter("logout") != null){
-                
                 action_logout(request,response);
             }
             if(request.getParameter(null) == null) {

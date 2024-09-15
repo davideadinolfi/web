@@ -2,6 +2,8 @@ package it.univaq.ex.webmarket.data.DAO;
 
 import it.univaq.ex.webmarket.data.model.Categoria;
 import it.univaq.framework.data.DataException;
+
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -16,7 +18,7 @@ public interface CategoriaDAO {
     Categoria getCategoria(int categoriaKey) throws DataException;
 
     // Recupera tutte le Categorie
-    List<Categoria> getCategorie() throws DataException;
+    List<Categoria> getCategorie() throws DataException, SQLException;
 
     // Recupera tutte le sotto-categorie di una specifica Categoria
     List<Categoria> getSottoCategorie(int categoriaPadreKey) throws DataException;

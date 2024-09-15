@@ -2,6 +2,8 @@ package it.univaq.ex.webmarket.data.DAO;
 
 import it.univaq.ex.webmarket.data.model.Caratteristica;
 import it.univaq.framework.data.DataException;
+
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -16,13 +18,13 @@ public interface CaratteristicaDAO {
     Caratteristica getCaratteristica(int caratteristicaKey) throws DataException;
 
     // Recupera tutte le Caratteristiche
-    List<Caratteristica> getCaratteristiche() throws DataException;
+    List<Caratteristica> getCaratteristiche(int key) throws DataException;
 
     // Recupera tutte le Caratteristiche associate a una specifica Categoria
     List<Caratteristica> getCaratteristicheByCategoria(int categoriaKey) throws DataException;
 
     // Memorizza o aggiorna una Caratteristica
-    void storeCaratteristica(Caratteristica caratteristica) throws DataException;
+    void storeCaratteristicaRichiesta(Caratteristica caratteristica,int richestaKey,String descrizione) throws DataException,SQLException;
 
     // Elimina una Caratteristica
     void deleteCaratteristica(int caratteristicaKey) throws DataException;

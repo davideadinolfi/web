@@ -4,7 +4,7 @@ import it.univaq.ex.webmarket.data.model.Categoria;
 import it.univaq.framework.data.DataItemImpl;
 
 public class CategoriaImpl extends DataItemImpl<Integer> implements Categoria {
-
+    private int id;
     private String nome;
     private String descrizione;
     private Categoria categoriaPadre;
@@ -15,6 +15,8 @@ public class CategoriaImpl extends DataItemImpl<Integer> implements Categoria {
         this.descrizione = "";
         this.categoriaPadre = null;
     }
+
+   
 
     @Override
     public String getNome() {

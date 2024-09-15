@@ -2,6 +2,7 @@ package it.univaq.ex.webmarket.data.model;
 
 import it.univaq.framework.data.DataItem;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public interface RichiestaAcquisto extends DataItem<Integer> {
@@ -18,9 +19,11 @@ public interface RichiestaAcquisto extends DataItem<Integer> {
 
     void setCategoria(Categoria categoria);
 
-    Date getDataRichiesta();
+    void setCategoria(String s);
 
-    void setDataRichiesta(Date dataRichiesta);
+    LocalDate getDataRichiesta();
+
+    void setDataRichiesta(LocalDate dataRichiesta);
 
     String getNote();
 

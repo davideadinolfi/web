@@ -7,13 +7,13 @@
 -- Versione del server: 10.4.25-MariaDB
 -- Versione PHP: 8.1.10
 
-DROP DATABASE IF EXISTS `webdb2`;
-CREATE DATABASE `webdb2`; 
+DROP DATABASE IF EXISTS `webdb`;
+CREATE DATABASE `webdb`; 
 DROP USER IF EXISTS 'website'@'localhost';
 CREATE USER 'website'@'localhost' IDENTIFIED BY 'webpass';
-GRANT ALL ON webdb2.* TO 'website'@'localhost';
+GRANT ALL ON webdb.* TO 'website'@'localhost';
 
-USE `webdb2`;
+USE `webdb`;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -287,3 +287,5 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO `utenti` (`id`, `nome`, `cognome`, `email`, `password`, `ruolo`) VALUES (NULL, 'a', 'a', 'a', '60bddb4f4d5b4317d3faec87756f77909e0a2e6ab80e8a8bae3eceefeb354ffe52a2414e67734acd6b2b151f1ca271b6', 'admin');
