@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Set 10, 2024 alle 21:52
+-- Creato il: Set 22, 2024 alle 16:26
 -- Versione del server: 10.4.25-MariaDB
 -- Versione PHP: 8.1.10
 
@@ -33,6 +33,15 @@ CREATE TABLE `caratteristica` (
   `descrizione` varchar(255) NOT NULL,
   `id_categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `caratteristica`
+--
+
+INSERT INTO `caratteristica` (`id`, `nome`, `descrizione`, `id_categoria`) VALUES
+(1, 'CPU', 'cpu', 5),
+(3, 'RAM', 'ram', 5),
+(5, 'batteria', 'batteria', 6);
 
 -- --------------------------------------------------------
 
@@ -104,9 +113,36 @@ CREATE TABLE `richiesta_acquisto` (
   `id_tecnico` int(11) DEFAULT NULL,
   `id_categoria` int(11) NOT NULL,
   `data_richiesta` datetime NOT NULL,
-  `note` varchar(1024) NOT NULL,
+  `note` varchar(1024) DEFAULT NULL,
   `stato_richiesta` enum('attesaTecnico','attesaOrdinante','ordinato','concluso') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `richiesta_acquisto`
+--
+
+INSERT INTO `richiesta_acquisto` (`id`, `id_ordinante`, `id_tecnico`, `id_categoria`, `data_richiesta`, `note`, `stato_richiesta`) VALUES
+(7, 5, 5, 5, '2024-09-12 00:00:00', 'hgdfhgdf', 'attesaTecnico'),
+(8, 5, 5, 5, '2024-09-12 00:00:00', 'dsaasss', 'attesaTecnico'),
+(9, 5, 5, 5, '2024-09-12 00:00:00', 'dsaasss', 'attesaTecnico'),
+(10, 4, 5, 5, '2024-09-12 00:00:00', 'xd', 'attesaTecnico'),
+(11, 4, NULL, 5, '2024-09-12 00:00:00', 'aaaa', 'attesaTecnico'),
+(12, 5, 5, 5, '2024-09-14 00:00:00', 'random', 'attesaTecnico'),
+(13, 4, NULL, 5, '2024-09-14 00:00:00', 'hdgf', 'attesaTecnico'),
+(14, 4, NULL, 5, '2024-09-14 00:00:00', 'hdgf', 'attesaTecnico'),
+(15, 4, NULL, 5, '2024-09-14 00:00:00', 'hdgf', 'attesaTecnico'),
+(16, 4, NULL, 5, '2024-09-14 00:00:00', 'hdgf', 'attesaTecnico'),
+(17, 4, NULL, 5, '2024-09-14 00:00:00', 'hdgf', 'attesaTecnico'),
+(18, 4, NULL, 7, '2024-09-14 00:00:00', 'csacz', 'attesaTecnico'),
+(19, 4, NULL, 6, '2024-09-14 00:00:00', 'vzc', 'attesaTecnico'),
+(20, 4, NULL, 6, '2024-09-14 00:00:00', 'vzc', 'attesaTecnico'),
+(21, 4, NULL, 6, '2024-09-14 00:00:00', 'vzc', 'attesaTecnico'),
+(22, 4, NULL, 5, '2024-09-14 00:00:00', 'gsfd', 'attesaTecnico'),
+(23, 4, NULL, 5, '2024-09-14 00:00:00', 'gfsd', 'attesaTecnico'),
+(24, 5, 5, 5, '2024-09-14 00:00:00', 'gsfd', 'attesaTecnico'),
+(25, 4, NULL, 5, '2024-09-14 00:00:00', 'fdas', 'attesaTecnico'),
+(26, 4, NULL, 5, '2024-09-14 00:00:00', 'zzz', 'attesaTecnico'),
+(27, 4, NULL, 7, '2024-09-20 19:08:29', 'zzzzzzz', 'attesaTecnico');
 
 -- --------------------------------------------------------
 
@@ -120,6 +156,14 @@ CREATE TABLE `richiesta_caratteristica` (
   `id_caratteristica` int(11) NOT NULL,
   `specifica` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `richiesta_caratteristica`
+--
+
+INSERT INTO `richiesta_caratteristica` (`id`, `id_richiesta_acquisto`, `id_caratteristica`, `specifica`) VALUES
+(1, 26, 1, 'zzz'),
+(2, 26, 3, 'zzz');
 
 -- --------------------------------------------------------
 
@@ -144,7 +188,8 @@ INSERT INTO `utenti` (`id`, `nome`, `cognome`, `email`, `password`, `ruolo`) VAL
 (1, 'admin', 'admin', 'admin@email.com', 'admin', 'admin'),
 (3, 'a', 'a', 'a', '60bddb4f4d5b4317d3faec87756f77909e0a2e6ab80e8a8bae3eceefeb354ffe52a2414e67734acd6b2b151f1ca271b6', 'admin'),
 (4, 'u', 'u', 'u', '8b0239756676a129d02e725035c89edd641112b47836a5bcddce1fb082d3201dbb919a523c0fd13d91de75c942d10ac5', 'utente'),
-(5, 't', 't', 't', '641869496bb3687c33b9b74d56c720317f68d61b40284a1de91b8132c5ca9da19635c24ad75c3330877567135be1d0be', 'tecnico');
+(5, 't', 't', 't', '641869496bb3687c33b9b74d56c720317f68d61b40284a1de91b8132c5ca9da19635c24ad75c3330877567135be1d0be', 'tecnico'),
+(6, 'vvcvxv', 'vcxvcx', 'ciaooo', 'af67255b2ee23589d2499995f758aca5a9041f44373481be41d946448ab49ae85f27e7f4c012d2e537af1e79f950c59a', 'utente');
 
 --
 -- Indici per le tabelle scaricate
@@ -162,6 +207,7 @@ ALTER TABLE `caratteristica`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nome` (`nome`),
   ADD KEY `id_categoriaPadre` (`id_categoriaPadre`);
 
 --
@@ -211,7 +257,7 @@ ALTER TABLE `utenti`
 -- AUTO_INCREMENT per la tabella `caratteristica`
 --
 ALTER TABLE `caratteristica`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT per la tabella `categoria`
@@ -235,19 +281,19 @@ ALTER TABLE `proposta_acquisto`
 -- AUTO_INCREMENT per la tabella `richiesta_acquisto`
 --
 ALTER TABLE `richiesta_acquisto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT per la tabella `richiesta_caratteristica`
 --
 ALTER TABLE `richiesta_caratteristica`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT per la tabella `utenti`
 --
 ALTER TABLE `utenti`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Limiti per le tabelle scaricate

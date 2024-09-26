@@ -1,0 +1,9 @@
+ciaoo
+${richiesta.note}
+${richiesta.statoRichiesta}
+<#if !richiesta.tecnico?? && logininfo.ruolo=="tecnico">
+    aodooaooaooo
+    <form method="post" action="richiesta"> <input type="submit" value="assegna richiesta" name="assegna"/>
+        <input type="hidden" name="richiesta" value="${richiesta.key}"/>
+    </form>
+</#if>

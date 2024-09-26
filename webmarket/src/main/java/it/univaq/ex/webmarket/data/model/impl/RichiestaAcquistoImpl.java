@@ -8,6 +8,8 @@ import it.univaq.ex.webmarket.data.model.Utente;
 import it.univaq.framework.data.DataItemImpl;
 import it.univaq.ex.webmarket.data.DAO.impl.WebmarketDataLayer;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class RichiestaAcquistoImpl extends DataItemImpl<Integer> implements RichiestaAcquisto {
@@ -15,7 +17,7 @@ public class RichiestaAcquistoImpl extends DataItemImpl<Integer> implements Rich
     private Utente ordinante;
     private Utente tecnico;
     private Categoria categoria;
-    private LocalDate dataRichiesta;
+    private LocalDateTime dataRichiesta;
     private String note;
     private StatoRichiesta statoRichiesta;
 
@@ -66,17 +68,17 @@ public class RichiestaAcquistoImpl extends DataItemImpl<Integer> implements Rich
     }
 
     public void setDataRichiesta(String s){
-        //DA FARE
-        this.dataRichiesta=null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        this.dataRichiesta = LocalDateTime.parse(s, formatter);
     }
 
     @Override
-    public LocalDate getDataRichiesta() {
+    public LocalDateTime getDataRichiesta() {
         return dataRichiesta;
     }
 
     @Override
-    public void setDataRichiesta(LocalDate dataRichiesta) {
+    public void setDataRichiesta(LocalDateTime dataRichiesta) {
         this.dataRichiesta = dataRichiesta;
     }
 

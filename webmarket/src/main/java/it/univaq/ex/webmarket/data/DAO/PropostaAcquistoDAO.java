@@ -3,12 +3,18 @@ package it.univaq.ex.webmarket.data.DAO;
 import it.univaq.ex.webmarket.data.model.PropostaAcquisto;
 import it.univaq.ex.webmarket.data.model.StatoProposta;
 import it.univaq.framework.data.DataException;
+
+import java.sql.ResultSet;
 import java.util.List;
+
+
 
 /**
  * Interfaccia per il DAO delle proposte di acquisto.
  */
 public interface PropostaAcquistoDAO {
+
+    public PropostaAcquisto createPropostaAcquisto(ResultSet rs);
 
     // Metodo factory per creare una nuova PropostaAcquisto
     PropostaAcquisto createPropostaAcquisto();

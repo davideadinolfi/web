@@ -15,6 +15,8 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import it.univaq.ex.webmarket.data.model.Ruolo;
+
 public class SecurityHelpers {
 
     //--------- SESSION SECURITY ------------    
@@ -106,11 +108,12 @@ public class SecurityHelpers {
         }
     }
 
-    public static HttpSession createSession(HttpServletRequest request, String username, int userid) {
+    public static HttpSession createSession(HttpServletRequest request, String username, int userid, Ruolo ruolo) {
         //se una sessione è già attiva, rimuoviamola e creiamone una nuova
         //if a session already exists, remove it and recreate a new one
         disposeSession(request);
         HttpSession s = request.getSession(true);
+        s.setAttribute("ruolo", ruolo.getValue());
         s.setAttribute("username", username);
         s.setAttribute("userid", userid);
         //

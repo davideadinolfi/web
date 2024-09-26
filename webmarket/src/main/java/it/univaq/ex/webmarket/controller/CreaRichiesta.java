@@ -39,7 +39,6 @@ public class CreaRichiesta extends WebmarketBaseController{
                 e.printStackTrace();
         }
         
-        
         result.activate("creaRichiesta.ftl.html", request, response);
     }
 

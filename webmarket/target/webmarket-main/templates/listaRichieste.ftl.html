@@ -1,9 +1,10 @@
 <p>ciaooooo</p>
 <#list listaRichieste as i>
+<a href="richiesta?richiesta=${i.key}">
 <div class="row">
     <div class="four columns clabel">${i.note}  ${i.statoRichiesta} 
         <#if i.tecnico??> 
-        ${i.tecnico.nome} ${i.tecnico.cognome} 
+        ${i.tecnico.nome} ${i.tecnico.cognome}   
         <#else>
         tecnico non presente
         </#if>
@@ -12,4 +13,5 @@
     </div>
     
 </div>
+</a>
 </#list>

@@ -4,9 +4,9 @@ import it.univaq.framework.data.DataItem;
 
 public interface RichiestaCaratteristica extends DataItem<Integer> {
 
-    RichiestaAcquisto getAcquisto();
+    RichiestaAcquisto getRichiesta();
 
-    void setAcquisto(RichiestaAcquisto acquisto);
+    void setRichiesta(RichiestaAcquisto acquisto);
 
     Caratteristica getCaratteristica();
 

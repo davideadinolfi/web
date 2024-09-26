@@ -24,8 +24,7 @@ public interface CaratteristicaDAO {
     List<Caratteristica> getCaratteristicheByCategoria(int categoriaKey) throws DataException;
 
     // Memorizza o aggiorna una Caratteristica
-    void storeCaratteristicaRichiesta(Caratteristica caratteristica,int richestaKey,String descrizione) throws DataException,SQLException;
-
+   
     // Elimina una Caratteristica
     void deleteCaratteristica(int caratteristicaKey) throws DataException;
 }

@@ -126,6 +126,36 @@ public class PropostaAcquistoImpl extends DataItemImpl<Integer> implements Propo
         this.statoProposta = statoProposta;
     }
 
+    public void setStatoProposta(String s){
+        switch (s) {
+            case "NF":
+                statoProposta=StatoProposta.NF;
+                break;
+            case "approvato":
+                statoProposta=StatoProposta.APPROVATO;
+                break;
+            case "respinto":
+                statoProposta=StatoProposta.RESPINTO;
+                break;
+            case "ordinato":
+                statoProposta=StatoProposta.ORDINATO;
+                break;
+            case "terminato":
+                statoProposta=StatoProposta.TERMINATO;
+                break;
+            case "in_attesa":
+                statoProposta=StatoProposta.IN_ATTESA;
+                break;
+            case "NC":
+                statoProposta=StatoProposta.NC;
+                break;
+            default:
+                statoProposta=null;
+                break;
+                
+        }
+    }
+
     @Override
     public String getNotaRespinta() {
         return notaRespinta;

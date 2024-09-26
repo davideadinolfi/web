@@ -19,8 +19,7 @@ public class RichiestaAcquistoProxy extends RichiestaAcquistoImpl implements Dat
 
     @Override
     public boolean isModified() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isModified'");
+        return modified;
     }
 
     @Override

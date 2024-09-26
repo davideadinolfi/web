@@ -48,6 +48,8 @@ public interface PropostaAcquisto extends DataItem<Integer> {
 
     void setStatoProposta(StatoProposta statoProposta);
 
+    void setStatoProposta(String s);
+
     String getNotaRespinta();
 
     void setNotaRespinta(String notaRespinta);

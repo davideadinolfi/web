@@ -9,11 +9,21 @@ package it.univaq.ex.webmarket.data.model;
  * @author Simone
  */
 public enum StatoProposta {
-    IN_ATTESA,
-    APPROVATO,
-    RESPINTO,
-    ORDINATO,
-    TERMINATO,
-    NC,
-    NF
+    IN_ATTESA("in attesa"),
+    APPROVATO("approvato"),
+    RESPINTO("respinto"),
+    ORDINATO("ordinato"),
+    TERMINATO("terminato"),
+    NC("nc"),
+    NF("nf");
+
+
+    private String value;
+    
+    private StatoProposta(String value){
+        this.value=value;
+    }
+    public String getValue(){
+        return this.value;
+    }
 }

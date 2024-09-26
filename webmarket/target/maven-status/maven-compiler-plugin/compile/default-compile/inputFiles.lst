@@ -5,6 +5,7 @@ D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\Caratteristica.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\RichiestaAcquistoDAO.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\impl\proxy\CaratteristicaProxy.java
+D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\impl\proxy\RichiestaCaratteristicaProxy.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\impl\PropostaAcquistoDAOmysql.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\UtenteDAO.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\Categoria.java
@@ -23,6 +24,7 @@ D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\framework\data\DataItem.
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\framework\data\DataItemImpl.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\framework\data\DataException.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\framework\result\DataModelFiller.java
+D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\RichiestaCaratteristicaDAO.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\controller\CreaRichiesta.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\CategoriaDAO.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\impl\RichiestaAcquistoDAOmysql.java
@@ -33,12 +35,14 @@ D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\framework\data\DataLayer
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\framework\security\SecurityHelpers.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\CaratteristicaDAO.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\impl\PropostaAcquistoImpl.java
+D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\impl\RichiestaCaratteristicaImpl.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\StatoRichiesta.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\PropostaAcquisto.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\impl\NotificaImpl.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\controller\TecnicoHome.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\impl\WebmarketDataLayer.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\framework\result\TemplateManagerException.java
+D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\impl\RichiestaCaratteristicaDAOmysql.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\framework\result\FailureResult.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\impl\RichiestaAcquistoImpl.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\controller\AdminHome.java
@@ -52,5 +56,6 @@ D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\impl\proxy\PropostaAcquistoProxy.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\Notifica.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\Utente.java
+D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\controller\Richiesta.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\impl\proxy\RichiestaAcquistoProxy.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\RichiestaAcquisto.java

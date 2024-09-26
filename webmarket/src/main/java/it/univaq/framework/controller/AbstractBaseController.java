@@ -67,6 +67,7 @@ public abstract class AbstractBaseController extends HttpServlet {
         if (s != null) {
             Map<String, Object> li = new HashMap<>();
             request.setAttribute("logininfo", li);
+            li.put("ruolo", s.getAttribute("ruolo"));
             li.put("session-start-ts", s.getAttribute("session-start-ts"));
             li.put("username", s.getAttribute("username"));
             li.put("userid", s.getAttribute("userid"));

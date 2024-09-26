@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -66,7 +67,7 @@ public class Home extends WebmarketBaseController {
         } catch (NumberFormatException | DataException e) {
             //TODO
         }
-        r.setDataRichiesta(LocalDate.now());
+        r.setDataRichiesta(LocalDateTime.now());
        
         r.setNote((String)request.getParameter("note"));
         r.setStatoRichiesta(StatoRichiesta.ATTESA_TECNICO);
@@ -77,7 +78,7 @@ public class Home extends WebmarketBaseController {
         }   
         l.stream().forEach(item ->{
             try {
-                ((WebmarketDataLayer) request.getAttribute("datalayer")).getCaratteristicaDAO().storeCaratteristicaRichiesta(item,r.getKey(),request.getParameter(item.getNome()));
+                ((WebmarketDataLayer) request.getAttribute("datalayer")).getRichiestaCaratteristicaDAO().storeCaratteristicaRichiesta(item,r.getKey(),request.getParameter(item.getNome()));
             } catch (Exception e) {
                 //TODO
             }

@@ -31,7 +31,10 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
     PreparedStatement iRichiesta;
     PreparedStatement sRichieste;
     PreparedStatement sRichiestaByUser;
-    PreparedStatement urichiesta;
+    PreparedStatement sRichiestaByid;
+    PreparedStatement sRichiesteByTecnico;
+    PreparedStatement sRichiesteSenzaTecnico;
+    PreparedStatement uRichiesta;
     public RichiestaAcquistoDAOmysql(DataLayer d) {
         super(d);
         //TODO Auto-generated constructor stub
@@ -43,6 +46,10 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
             iRichiesta = connection.prepareStatement("INSERT INTO richiesta_acquisto (id_ordinante,id_tecnico,id_categoria,data_richiesta,note,stato_richiesta) VALUES (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             sRichieste = connection.prepareStatement("SELECT id AS IDrichiesta FROM richiesta_acquisto");
             sRichiestaByUser=connection.prepareStatement("SELECT * FROM richiesta_acquisto WHERE id_ordinante=?");
+            sRichiestaByid=connection.prepareStatement("SELECT * FROM richiesta_acquisto WHERE id=?");
+            sRichiesteByTecnico=connection.prepareStatement("SELECT * FROM richiesta_acquisto where id_tecnico=?");
+            sRichiesteSenzaTecnico=connection.prepareStatement("SELECT * FROM richiesta_acquisto where id_tecnico IS NULL");
+            uRichiesta=connection.prepareStatement("UPDATE richiesta_acquisto SET id_ordinante = ?, id_tecnico = ?, id_categoria = ?, data_richiesta = ?, note = ?, stato_richiesta = ? WHERE id = ?");
         } catch (SQLException e) {
             throw new DataException("errore di inizializzazione di richiestaAcquisto",e);
         }
@@ -56,14 +63,15 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
             Categoria c= ((Categoria) ((WebmarketDataLayer) dataLayer).getCategoriaDAO().getCategoria(rs.getInt("id_categoria")));
             a.setCategoria(c);
             a.setDataRichiesta(rs.getString("data_richiesta"));
-            a.setOrdinante(rs.getInt("id_ordinante"));
+            Utente o=((Utente) ((WebmarketDataLayer) dataLayer).getUtenteDAO().getUtente(rs.getInt("id_ordinante")));
+            a.setOrdinante(o);
             a.setStatoRichiesta(rs.getString("stato_richiesta"));
             a.setNote(rs.getString("note"));
             Utente t = ((Utente)((WebmarketDataLayer) dataLayer).getUtenteDAO().getUtente(rs.getInt("id_tecnico")));
             a.setTecnico(t);
             return a;
         } catch (SQLException ex) {
-            throw new DataException("Unable to create user object form ResultSet", ex);
+            throw new DataException("Unable to create richiestaAcquisto object form ResultSet", ex);
         }
     }
 
@@ -72,10 +80,30 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
         return new RichiestaAcquistoProxy(getDataLayer());
     }
 
+
+
     @Override
     public RichiestaAcquisto getRichiestaAcquisto(int richiestaAcquistoKey) throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRichiestaAcquisto'");
+        RichiestaAcquisto r=null;
+        if(dataLayer.getCache().has(RichiestaAcquisto.class, richiestaAcquistoKey)){
+            r=dataLayer.getCache().get(RichiestaAcquisto.class, richiestaAcquistoKey);
+        }
+        else{
+        try{
+            sRichiestaByid.setInt(1, richiestaAcquistoKey);
+            try(ResultSet rs=sRichiestaByid.executeQuery()){
+                if(rs.next()){
+                    r=createRichiestaAcquisto(rs);
+                    dataLayer.getCache().add(RichiestaAcquisto.class, r);
+                }
+
+            }
+        }
+        catch(Exception e){
+            //TODO
+        }
+    }
+    return r;
     }
 
     @Override
@@ -103,8 +131,25 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
 
     @Override
     public List<RichiestaAcquisto> getRichiesteAcquistoByTecnico(int tecnicoKey) throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRichiesteAcquistoByTecnico'");
+        ArrayList<RichiestaAcquisto> list = new ArrayList<RichiestaAcquisto>();
+        ResultSet rs;
+        try {
+            sRichiesteByTecnico.setInt(1, tecnicoKey);
+            if(tecnicoKey==0){
+                rs=sRichiesteSenzaTecnico.executeQuery();
+            }
+            else{
+                rs=sRichiesteByTecnico.executeQuery();
+            }
+            while(rs.next()){
+                list.add(createRichiestaAcquisto(rs));
+
+            }
+        }
+        catch(SQLException e){
+            //TODO
+        }
+        return list;
     }
 
     @Override
@@ -117,6 +162,20 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
                 //do not store the object if it is a proxy and does not indicate any modification
                 if (richiestaAcquisto instanceof DataItemProxy && !((DataItemProxy) richiestaAcquisto).isModified()) {
                     return;
+                }
+                uRichiesta.setInt(1, richiestaAcquisto.getOrdinante().getKey());
+                if(richiestaAcquisto.getTecnico()!= null)
+                    uRichiesta.setInt(2, richiestaAcquisto.getTecnico().getKey());
+                uRichiesta.setInt(3, richiestaAcquisto.getCategoria().getKey());
+                uRichiesta.setString(4, richiestaAcquisto.getDataRichiesta().toString());
+                uRichiesta.setString(5, richiestaAcquisto.getNote());
+                uRichiesta.setString(6, richiestaAcquisto.getStatoRichiesta().getValue());
+                uRichiesta.setInt(7, richiestaAcquisto.getKey());
+                if(uRichiesta.executeUpdate() == 1){
+                    dataLayer.getCache().add(RichiestaAcquisto.class,richiestaAcquisto);
+                    if (richiestaAcquisto instanceof DataItemProxy) {
+                        ((DataItemProxy) richiestaAcquisto).setModified(false);
+                    }
                 }
                 /* 
                 uUser.setString(1, user.getEmail());

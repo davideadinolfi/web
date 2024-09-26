@@ -24,6 +24,7 @@ public class CaratteristicaDAOmysql extends DAO implements CaratteristicaDAO{
     private PreparedStatement gCaratteristicheByCategoria;
     private PreparedStatement gCaratteristica;
     private PreparedStatement iCaratteristicheRichiesta;
+    private PreparedStatement gCaratteristicheRichiesta;
 
     public CaratteristicaDAOmysql(DataLayer d) {
         super(d);
@@ -35,7 +36,8 @@ public class CaratteristicaDAOmysql extends DAO implements CaratteristicaDAO{
             super.init();
             gCaratteristicheByCategoria= connection.prepareStatement("SELECT * FROM `caratteristica` WHERE id_categoria=?");
             gCaratteristica=connection.prepareStatement("SELECT * FROM 'caratteristica' WHERE ID=?");
-            iCaratteristicheRichiesta=connection.prepareStatement("INSERT INTO richiesta_caratteristica(id_richiesta_acquisto,id_caratteristica,specifica) VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS);
+           
+            gCaratteristicheRichiesta=connection.prepareStatement("select * FROM richiesta_caratteristica where id_richiesta_acquisto=?");
         }
         catch(SQLException e){
             throw new DataException("errore caratteristica DAO");
@@ -115,36 +117,7 @@ public class CaratteristicaDAOmysql extends DAO implements CaratteristicaDAO{
     return l;
     }
 
-    @Override
-    public void storeCaratteristicaRichiesta(Caratteristica caratteristica,int richiestaKey,String descrizione) throws DataException, SQLException {
-        try {
-            iCaratteristicheRichiesta.setInt(1, richiestaKey);
-            iCaratteristicheRichiesta.setInt(2, caratteristica.getKey());
-            iCaratteristicheRichiesta.setString(3, descrizione);
-
-        } catch (SQLException e) {
-            //TODO
-        }
-
-        if (iCaratteristicheRichiesta.executeUpdate() == 1) {
-        
-                    
-                    //per leggere la chiave generata dal database
-                    //per il record appena inserito, usiamo il metodo
-                    //getGeneratedKeys sullo statement.
-                    //to read the generated record key from the database
-                    //we use the getGeneratedKeys method on the same statement
-                    try ( ResultSet keys = iCaratteristicheRichiesta.getGeneratedKeys()) {
-                        //il valore restituito è un ResultSet con un record
-                        //per ciascuna chiave generata (uno solo nel nostro caso)
-                        //the returned value is a ResultSet with a distinct record for
-                        //each generated key (only one in our case)
-                        }
-        }
-               
-    }
-    
-    
+ 
 
     @Override
     public void deleteCaratteristica(int caratteristicaKey) throws DataException {

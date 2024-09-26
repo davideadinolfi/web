@@ -28,7 +28,10 @@
         <servlet-name>creaRichiesta</servlet-name>
         <servlet-class>it.univaq.ex.webmarket.controller.CreaRichiesta</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>richiesta</servlet-name>
+        <servlet-class>it.univaq.ex.webmarket.controller.Richiesta</servlet-class>
+    </servlet>
 
 
     <servlet-mapping>
@@ -50,6 +53,10 @@
     <servlet-mapping>
         <servlet-name>creaRichiesta</servlet-name>
         <url-pattern>/creaRichiesta</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>richiesta</servlet-name>
+        <url-pattern>/richiesta</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
