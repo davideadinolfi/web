@@ -17,14 +17,12 @@ public class PropostaAcquistoProxy extends PropostaAcquistoImpl implements DataI
 
     @Override
     public boolean isModified() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isModified'");
+        return this.modified;
     }
 
     @Override
     public void setModified(boolean dirty) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setModified'");
+        this.modified=dirty;
     }
     
 }

@@ -1,0 +1,11 @@
+<p>le tue proposte:</p>
+<#list listaProposte as i>
+<a href="proposta?proposta=${i.key}">
+<div class="row">
+    <div class="four columns clabel">  ${i.prezzo}  ${i.statoProposta} 
+        
+    </div>
+    
+</div>
+</a>
+</#list>

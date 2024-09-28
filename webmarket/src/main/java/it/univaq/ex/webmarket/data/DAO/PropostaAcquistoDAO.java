@@ -2,6 +2,7 @@ package it.univaq.ex.webmarket.data.DAO;
 
 import it.univaq.ex.webmarket.data.model.PropostaAcquisto;
 import it.univaq.ex.webmarket.data.model.StatoProposta;
+import it.univaq.ex.webmarket.data.model.Utente;
 import it.univaq.framework.data.DataException;
 
 import java.sql.ResultSet;
@@ -36,5 +37,9 @@ public interface PropostaAcquistoDAO {
 
     // Elimina una PropostaAcquisto
     void deletePropostaAcquisto(int propostaAcquistoKey) throws DataException;
+
+    List<PropostaAcquisto> getProposteAcquistoByOrdinante(Utente u)throws DataException;
+
+    List<PropostaAcquisto> getProposteAcquistoByTecnico(Utente u)throws DataException;
 }
 

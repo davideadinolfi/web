@@ -7,6 +7,7 @@ D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\Ri
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\impl\proxy\CaratteristicaProxy.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\impl\proxy\RichiestaCaratteristicaProxy.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\impl\PropostaAcquistoDAOmysql.java
+D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\controller\Proposta.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\UtenteDAO.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\Categoria.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\impl\CaratteristicaDAOmysql.java
@@ -50,6 +51,7 @@ D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\controller\
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\impl\proxy\CategoriaProxy.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\impl\NotificaDAOmysql.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\StatoProposta.java
+D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\controller\CreaProposta.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\controller\Home.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\DAO\NotificaDAO.java
 D:\roba\uni\webmarket\webmarket\src\main\java\it\univaq\ex\webmarket\data\model\impl\proxy\NotificaProxy.java

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Set 22, 2024 alle 16:26
+-- Creato il: Set 28, 2024 alle 23:33
 -- Versione del server: 10.4.25-MariaDB
 -- Versione PHP: 8.1.10
 
@@ -88,18 +88,26 @@ CREATE TABLE `notifica` (
 --
 
 CREATE TABLE `proposta_acquisto` (
-  `ID` int(11) NOT NULL,
-  `ID_richiesta_acquisto` int(11) NOT NULL,
-  `ID_tecnico` int(11) NOT NULL,
-  `nome_produttore` varchar(255) NOT NULL,
-  `nome_prodotto` varchar(255) NOT NULL,
-  `codice_prodotto` int(11) NOT NULL,
-  `prezzo` int(11) NOT NULL,
-  `URL` varchar(512) NOT NULL,
+  `id` int(11) NOT NULL,
+  `id_richiesta_acquisto` int(11) NOT NULL,
+  `nome_produttore` varchar(64) NOT NULL,
+  `nome_prodotto` varchar(64) NOT NULL,
+  `codice_prodotto` varchar(64) NOT NULL,
+  `prezzo` double NOT NULL,
+  `url` varchar(264) NOT NULL,
   `note` varchar(1024) NOT NULL,
-  `stato proposta` enum('approvato','respinto','ordinato','terminato','NC','NF') NOT NULL,
-  `nota respinta` varchar(1024) NOT NULL
+  `stato_proposta` enum('in attesa','approvato','respinto','ordinato','terminato','NC','NF') NOT NULL,
+  `nota_respinta` varchar(1024) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `proposta_acquisto`
+--
+
+INSERT INTO `proposta_acquisto` (`id`, `id_richiesta_acquisto`, `nome_produttore`, `nome_prodotto`, `codice_prodotto`, `prezzo`, `url`, `note`, `stato_proposta`, `nota_respinta`) VALUES
+(13, 1, 'zzzzz', 'trapphone', 'aaaaaa', 7.77, 'tttttt', 'grrgrgr', 'in attesa', NULL),
+(16, 1, 'zzzzz', 'trapphone', 'aaaaaa', 7.77, 'tttttt', 'grrgrgr', 'in attesa', NULL),
+(24, 1, 'fdsafdas', 'fadsadfs', 'afdsafsd', 30.56, 'fadssadf', 'fadsfads', 'in attesa', NULL);
 
 -- --------------------------------------------------------
 
@@ -122,27 +130,9 @@ CREATE TABLE `richiesta_acquisto` (
 --
 
 INSERT INTO `richiesta_acquisto` (`id`, `id_ordinante`, `id_tecnico`, `id_categoria`, `data_richiesta`, `note`, `stato_richiesta`) VALUES
-(7, 5, 5, 5, '2024-09-12 00:00:00', 'hgdfhgdf', 'attesaTecnico'),
-(8, 5, 5, 5, '2024-09-12 00:00:00', 'dsaasss', 'attesaTecnico'),
-(9, 5, 5, 5, '2024-09-12 00:00:00', 'dsaasss', 'attesaTecnico'),
-(10, 4, 5, 5, '2024-09-12 00:00:00', 'xd', 'attesaTecnico'),
-(11, 4, NULL, 5, '2024-09-12 00:00:00', 'aaaa', 'attesaTecnico'),
-(12, 5, 5, 5, '2024-09-14 00:00:00', 'random', 'attesaTecnico'),
-(13, 4, NULL, 5, '2024-09-14 00:00:00', 'hdgf', 'attesaTecnico'),
-(14, 4, NULL, 5, '2024-09-14 00:00:00', 'hdgf', 'attesaTecnico'),
-(15, 4, NULL, 5, '2024-09-14 00:00:00', 'hdgf', 'attesaTecnico'),
-(16, 4, NULL, 5, '2024-09-14 00:00:00', 'hdgf', 'attesaTecnico'),
-(17, 4, NULL, 5, '2024-09-14 00:00:00', 'hdgf', 'attesaTecnico'),
-(18, 4, NULL, 7, '2024-09-14 00:00:00', 'csacz', 'attesaTecnico'),
-(19, 4, NULL, 6, '2024-09-14 00:00:00', 'vzc', 'attesaTecnico'),
-(20, 4, NULL, 6, '2024-09-14 00:00:00', 'vzc', 'attesaTecnico'),
-(21, 4, NULL, 6, '2024-09-14 00:00:00', 'vzc', 'attesaTecnico'),
-(22, 4, NULL, 5, '2024-09-14 00:00:00', 'gsfd', 'attesaTecnico'),
-(23, 4, NULL, 5, '2024-09-14 00:00:00', 'gfsd', 'attesaTecnico'),
-(24, 5, 5, 5, '2024-09-14 00:00:00', 'gsfd', 'attesaTecnico'),
-(25, 4, NULL, 5, '2024-09-14 00:00:00', 'fdas', 'attesaTecnico'),
-(26, 4, NULL, 5, '2024-09-14 00:00:00', 'zzz', 'attesaTecnico'),
-(27, 4, NULL, 7, '2024-09-20 19:08:29', 'zzzzzzz', 'attesaTecnico');
+(1, 4, 5, 5, '2024-09-22 19:36:20', 'note', 'attesaTecnico'),
+(2, 4, 5, 7, '2024-09-24 14:57:45', 'aaa', 'attesaTecnico'),
+(3, 4, NULL, 6, '2024-09-24 14:57:51', 'vvvv', 'attesaTecnico');
 
 -- --------------------------------------------------------
 
@@ -162,8 +152,9 @@ CREATE TABLE `richiesta_caratteristica` (
 --
 
 INSERT INTO `richiesta_caratteristica` (`id`, `id_richiesta_acquisto`, `id_caratteristica`, `specifica`) VALUES
-(1, 26, 1, 'zzz'),
-(2, 26, 3, 'zzz');
+(1, 1, 1, 'caratteristica1'),
+(2, 1, 3, 'caratteristica2'),
+(3, 3, 5, 'cccc');
 
 -- --------------------------------------------------------
 
@@ -222,9 +213,8 @@ ALTER TABLE `notifica`
 -- Indici per le tabelle `proposta_acquisto`
 --
 ALTER TABLE `proposta_acquisto`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `ID_richiesta_acquisto` (`ID_richiesta_acquisto`),
-  ADD KEY `ID_tecnico` (`ID_tecnico`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_richiesta_acquisto` (`id_richiesta_acquisto`);
 
 --
 -- Indici per le tabelle `richiesta_acquisto`
@@ -275,19 +265,19 @@ ALTER TABLE `notifica`
 -- AUTO_INCREMENT per la tabella `proposta_acquisto`
 --
 ALTER TABLE `proposta_acquisto`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT per la tabella `richiesta_acquisto`
 --
 ALTER TABLE `richiesta_acquisto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `richiesta_caratteristica`
 --
 ALTER TABLE `richiesta_caratteristica`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT per la tabella `utenti`
@@ -316,8 +306,7 @@ ALTER TABLE `notifica`
 -- Limiti per la tabella `proposta_acquisto`
 --
 ALTER TABLE `proposta_acquisto`
-  ADD CONSTRAINT `proposta_acquisto_ibfk_1` FOREIGN KEY (`ID_richiesta_acquisto`) REFERENCES `richiesta_acquisto` (`id`),
-  ADD CONSTRAINT `proposta_acquisto_ibfk_2` FOREIGN KEY (`ID_tecnico`) REFERENCES `utenti` (`id`);
+  ADD CONSTRAINT `proposta_acquisto_ibfk_1` FOREIGN KEY (`id_richiesta_acquisto`) REFERENCES `richiesta_acquisto` (`id`);
 
 --
 -- Limiti per la tabella `richiesta_acquisto`

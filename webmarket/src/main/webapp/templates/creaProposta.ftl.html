@@ -1,0 +1,32 @@
+${richiesta.key}
+<form method="post" action ="creaProposta">
+    <div class="container">
+        <div class="row">
+            <div class="four columns clabel">nome produttore: </div>
+            <div class="ten columns"> <input name="nome_produttore" type="text"/>
+        </div>
+        <div class="row"></div>
+            <div class="four columns clabel">nome prodotto: </div>
+            <div class="ten columns"> <input name="nome_prodotto" type="text"/>
+        </div>
+        <div class="row"></div>
+            <div class="four columns clabel">codice prodotto: </div>
+            <div class="ten columns"> <input name="codice_prodotto" type="text"/>
+        </div>
+        <div class="row"></div>
+            <div class="four columns clabel">prezzo: </div>
+            <div class="ten columns"> <input name="prezzo" type="double"/>
+        </div>
+        <div class="row"></div>
+            <div class="four columns clabel">URL: </div>
+            <div class="ten columns"> <input name="url" type="text"/>
+        </div>
+        <div class="row"></div>
+            <div class="four columns clabel">note: </div>
+            <div class="ten columns"> <input name="note" type="text"/>
+        </div>
+        <div class="row"><input value="crea proposta" name="crea_proposta" type="submit"></div>
+    </div>
+    <input type="hidden" name="richiesta" value="${richiesta.key}"/>
+
+</form>

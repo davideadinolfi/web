@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import it.univaq.ex.webmarket.data.DAO.impl.WebmarketDataLayer;
 import it.univaq.ex.webmarket.data.model.Caratteristica;
 import it.univaq.ex.webmarket.data.model.Categoria;
+import it.univaq.ex.webmarket.data.model.PropostaAcquisto;
 import it.univaq.ex.webmarket.data.model.RichiestaAcquisto;
 import it.univaq.ex.webmarket.data.model.StatoRichiesta;
 import it.univaq.ex.webmarket.data.model.Utente;
@@ -35,11 +39,21 @@ public class Home extends WebmarketBaseController {
                 ArrayList <RichiestaAcquisto> list=(ArrayList<RichiestaAcquisto>) ((WebmarketDataLayer) request.getAttribute("datalayer")).getRichiestaAcquistoDAO().getRichiesteAcquistoByOrdinante(
                 ((Utente) request.getSession().getAttribute("user")).getKey());
                 request.setAttribute("listaRichieste", list);
-                try(FileWriter file = new FileWriter("D://roba//uni//webmarket//webmarket//log.txt")){
-                    file.write("dioporco");}
-                catch(Exception e){
         
-                }
+        } catch (DataException e) {
+            //TODO
+        }
+        
+    }
+
+    private void loadListaProposte(HttpServletRequest request,HttpServletResponse response) {
+        
+    
+        try {   
+                ArrayList <PropostaAcquisto> list=(ArrayList<PropostaAcquisto>) ((WebmarketDataLayer) request.getAttribute("datalayer")).getPropostaAcquistoDAO().getProposteAcquistoByOrdinante(
+                (Utente) request.getSession().getAttribute("user"));
+                request.setAttribute("listaProposte", list);
+                
         } catch (DataException e) {
             //TODO
         }
@@ -49,9 +63,11 @@ public class Home extends WebmarketBaseController {
     private void action_default(HttpServletRequest request, HttpServletResponse response)throws IOException,TemplateManagerException{
         TemplateResult result = new TemplateResult(getServletContext());
         request.setAttribute("referrer", request.getParameter("referrer"));
+        loadListaProposte(request, response);
         loadListaRichieste(request, response);
         result.activate("home.ftl.html", request, response);
         result.activate("listaRichieste.ftl.html", request, response);
+        result.activate("listaProposte.ftl.html", request, response);
         
         
     }

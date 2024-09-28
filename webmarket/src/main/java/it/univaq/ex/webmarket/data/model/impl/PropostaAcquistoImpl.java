@@ -143,7 +143,7 @@ public class PropostaAcquistoImpl extends DataItemImpl<Integer> implements Propo
             case "terminato":
                 statoProposta=StatoProposta.TERMINATO;
                 break;
-            case "in_attesa":
+            case "in attesa":
                 statoProposta=StatoProposta.IN_ATTESA;
                 break;
             case "NC":
