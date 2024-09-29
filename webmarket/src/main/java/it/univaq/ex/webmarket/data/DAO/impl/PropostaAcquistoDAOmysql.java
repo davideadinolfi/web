@@ -155,14 +155,7 @@ public class PropostaAcquistoDAOmysql extends DAO implements PropostaAcquistoDAO
                 //do not store the object if it is a proxy and does not indicate any modification
                 if (propostaAcquisto instanceof DataItemProxy && !((DataItemProxy) propostaAcquisto).isModified()) {
                     return;
-                }
-                if(uPropostaAcquisto.executeUpdate() == 1){
-                    dataLayer.getCache().add(PropostaAcquisto.class,propostaAcquisto);
-                    if (propostaAcquisto instanceof DataItemProxy) {
-                        ((DataItemProxy) propostaAcquisto).setModified(false);
-                    }
-                }
-
+                }            
                 uPropostaAcquisto.setInt(1, propostaAcquisto.getRichiestaAcquisto().getKey());
                 uPropostaAcquisto.setString(2, propostaAcquisto.getNomeProduttore());
                 uPropostaAcquisto.setString(3, propostaAcquisto.getNomeProdotto());
@@ -172,6 +165,7 @@ public class PropostaAcquistoDAOmysql extends DAO implements PropostaAcquistoDAO
                 uPropostaAcquisto.setString(7, propostaAcquisto.getNote());
                 uPropostaAcquisto.setString(8, propostaAcquisto.getStatoProposta().getValue());
                 uPropostaAcquisto.setString(9, propostaAcquisto.getNotaRespinta());
+                uPropostaAcquisto.setInt(10, propostaAcquisto.getKey());
                 if(uPropostaAcquisto.executeUpdate() == 1){
                     dataLayer.getCache().add(PropostaAcquisto.class,propostaAcquisto);
                     if (propostaAcquisto instanceof DataItemProxy) {

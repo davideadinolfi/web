@@ -1,9 +1,28 @@
 ciaoo
 ${proposta.note}
+${proposta.statoProposta}
+${logininfo.ruolo}
+
 ciaooooooo
 <#if logininfo.ruolo=="tecnico">
+    <#if proposta.statoProposta == "APPROVATO">
+        <form method="post" action="proposta"> <input type="submit" value="ordina" name="ordina"/>
+    </#if>
+</#if>
 
-<#/if>
 <#if logininfo.ruolo=="utente">
+    <#if proposta.statoProposta == "IN_ATTESA">
+        <form method="post" action="proposta"> <input type="submit" value="accetta" name="accettato"/>   <input type="submit" value="rifiuta" name="rifiutato"/> 
+    </#if>
+    <#if proposta.statoProposta =="ORDINATO">
+        <form method="post" action="proposta"> 
+            <input type="submit" value="termina" name="termina"/>
+            <input type="submit" value="prodotto non funzionante" name="NF"/>
+            <input type="submit" value="prodotto non conforme" name="NC"/>
+    </#if>
+</#if>
 
-<#/if>
+        
+
+<input type="hidden" name="proposta" value="${proposta.key}"/>
+</form>  
