@@ -14,18 +14,11 @@ public interface CaratteristicaDAO {
     // Metodo factory per creare una nuova Caratteristica
     Caratteristica createCaratteristica();
 
-    // Recupera una Caratteristica tramite la sua chiave primaria
-    Caratteristica getCaratteristica(int caratteristicaKey) throws DataException;
-
-    // Recupera tutte le Caratteristiche
-    List<Caratteristica> getCaratteristiche(int key) throws DataException;
+  
 
     // Recupera tutte le Caratteristiche associate a una specifica Categoria
     List<Caratteristica> getCaratteristicheByCategoria(int categoriaKey) throws DataException;
 
-    // Memorizza o aggiorna una Caratteristica
-   
-    // Elimina una Caratteristica
-    void deleteCaratteristica(int caratteristicaKey) throws DataException;
+    
 }
 

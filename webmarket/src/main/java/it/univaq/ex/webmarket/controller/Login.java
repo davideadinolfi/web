@@ -90,6 +90,8 @@ public class Login extends WebmarketBaseController {
         handleError("Login failed", request, response);
     }
 
+
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -102,6 +104,9 @@ public class Login extends WebmarketBaseController {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
         try {
+            if(request.getParameter("logout") != null){
+                SecurityHelpers.disposeSession(request);
+            }
             if (request.getParameter("login") != null) {
                 action_login(request, response);
             } else {

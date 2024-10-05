@@ -25,8 +25,7 @@ public class TecnicoHome extends WebmarketBaseController{
         loadListaProposte(request, response);
         loadListaRichieste(request, response);
         result.activate("tecnicoHome.ftl.html", request, response);
-        result.activate("listaRichieste.ftl.html", request, response);
-        result.activate("listaProposte.ftl.html", request, response);
+
     }
 
     private void loadListaRichieste(HttpServletRequest request, HttpServletResponse response){
@@ -37,7 +36,7 @@ public class TecnicoHome extends WebmarketBaseController{
                 request.setAttribute("listaRichieste", list);
                 
         } catch (DataException e) {
-            //TODO
+            handleError(e, request, response);
         }
     }
 
@@ -50,7 +49,7 @@ public class TecnicoHome extends WebmarketBaseController{
                 request.setAttribute("listaProposte", list);
                 
         } catch (DataException e) {
-            //TODO
+            handleError(e, request, response);
         }
     }
 

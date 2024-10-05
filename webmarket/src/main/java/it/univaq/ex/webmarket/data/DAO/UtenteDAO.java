@@ -15,8 +15,7 @@ public interface UtenteDAO {
     // Recupera un Utente tramite la sua chiave primaria
     Utente getUtente(int utenteKey) throws DataException;
 
-    // Recupera tutti gli Utenti
-    List<Utente> getUtenti() throws DataException;
+
 
     // Recupera un Utente tramite l'email
     Utente getUtenteByEmail(String email) throws DataException;
@@ -24,7 +23,6 @@ public interface UtenteDAO {
     // Memorizza o aggiorna un Utente
     void storeUtente(Utente utente) throws DataException;
 
-    // Elimina un Utente
-    void deleteUtente(int utenteKey) throws DataException;
+
 }
 

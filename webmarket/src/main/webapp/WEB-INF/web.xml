@@ -8,6 +8,10 @@
         <!-- qui configuriamo in nome della data source da usare nel codice -->
         <param-value>jdbc/webdb</param-value>
     </context-param>
+    <context-param>
+        <param-name>view.outline_template</param-name>
+        <param-value>outline.ftl.html</param-value>
+    </context-param>
     <servlet>
         <servlet-name>home</servlet-name>
         <servlet-class>it.univaq.ex.webmarket.controller.Home</servlet-class>

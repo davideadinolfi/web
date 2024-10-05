@@ -18,9 +18,6 @@ public interface RichiestaAcquistoDAO {
     // Recupera una RichiestaAcquisto tramite la sua chiave primaria
     RichiestaAcquisto getRichiestaAcquisto(int richiestaAcquistoKey) throws DataException;
 
-    // Recupera tutte le RichiestaAcquisto
-    List<RichiestaAcquisto> getRichiesteAcquisto() throws DataException;
-
     // Recupera le RichiestaAcquisto per un ordinante specifico
     List<RichiestaAcquisto> getRichiesteAcquistoByOrdinante(int ordinanteKey) throws DataException;
 
@@ -30,10 +27,5 @@ public interface RichiestaAcquistoDAO {
     // Memorizza o aggiorna una RichiestaAcquisto
     void storeRichiestaAcquisto(RichiestaAcquisto richiestaAcquisto) throws DataException, IOException;
 
-    // Aggiorna lo stato di una RichiestaAcquisto
-    void updateStatoRichiesta(int richiestaAcquistoKey, StatoRichiesta statoRichiesta) throws DataException;
-
-    // Elimina una RichiestaAcquisto
-    void deleteRichiestaAcquisto(int richiestaAcquistoKey) throws DataException;
 }
 

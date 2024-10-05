@@ -41,7 +41,7 @@ public class Home extends WebmarketBaseController {
                 request.setAttribute("listaRichieste", list);
         
         } catch (DataException e) {
-            //TODO
+            handleError(e, request, response);
         }
         
     }
@@ -55,7 +55,7 @@ public class Home extends WebmarketBaseController {
                 request.setAttribute("listaProposte", list);
                 
         } catch (DataException e) {
-            //TODO
+            handleError(e, request, response);
         }
         
     }
@@ -66,8 +66,6 @@ public class Home extends WebmarketBaseController {
         loadListaProposte(request, response);
         loadListaRichieste(request, response);
         result.activate("home.ftl.html", request, response);
-        result.activate("listaRichieste.ftl.html", request, response);
-        result.activate("listaProposte.ftl.html", request, response);
         
         
     }
@@ -81,7 +79,7 @@ public class Home extends WebmarketBaseController {
         try {
             r.setCategoria((Categoria) ((WebmarketDataLayer) request.getAttribute("datalayer")).getCategoriaDAO().getCategoria(Integer.parseInt((String)request.getSession().getAttribute("categoria"))));
         } catch (NumberFormatException | DataException e) {
-            //TODO
+            handleError(e, request, response);
         }
         r.setDataRichiesta(LocalDateTime.now());
        
@@ -90,13 +88,13 @@ public class Home extends WebmarketBaseController {
         try {
             ((WebmarketDataLayer) request.getAttribute("datalayer")).getRichiestaAcquistoDAO().storeRichiestaAcquisto(r);
         } catch (DataException | IOException e) {
-            //TODO
+            handleError(e, request, response);
         }   
         l.stream().forEach(item ->{
             try {
                 ((WebmarketDataLayer) request.getAttribute("datalayer")).getRichiestaCaratteristicaDAO().storeCaratteristicaRichiesta(item,r.getKey(),request.getParameter(item.getNome()));
             } catch (Exception e) {
-                //TODO
+                handleError(e, request, response);
             }
         });
         l.clear(); 

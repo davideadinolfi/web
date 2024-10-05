@@ -51,7 +51,7 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
             sRichiesteSenzaTecnico=connection.prepareStatement("SELECT * FROM richiesta_acquisto where id_tecnico IS NULL");
             uRichiesta=connection.prepareStatement("UPDATE richiesta_acquisto SET id_ordinante = ?, id_tecnico = ?, id_categoria = ?, data_richiesta = ?, note = ?, stato_richiesta = ? WHERE id = ?");
         } catch (SQLException e) {
-            throw new DataException("errore di inizializzazione di richiestaAcquisto",e);
+            throw new DataException("errore di inizializzazione del datalayer di richiestaAcquisto",e);
         }
     }
 
@@ -100,16 +100,10 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
             }
         }
         catch(Exception e){
-            //TODO
+            throw new DataException("impossibile ritornare la richiestaAcquisto",e);
         }
     }
     return r;
-    }
-
-    @Override
-    public List<RichiestaAcquisto> getRichiesteAcquisto() throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRichiesteAcquisto'");
     }
 
     @Override
@@ -124,7 +118,7 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
             }
         }
         catch(SQLException e){
-            //TODO
+            throw new DataException("impossibile ritornare la lista di richiesteAcquisto",e);
         }
         return list;
     }
@@ -147,7 +141,7 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
             }
         }
         catch(SQLException e){
-            //TODO
+            throw new DataException("impossibile ritornare la lista di richiesteAcquisto",e);
         }
         return list;
     }
@@ -177,22 +171,7 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
                         ((DataItemProxy) richiestaAcquisto).setModified(false);
                     }
                 }
-                /* 
-                uUser.setString(1, user.getEmail());
-                uUser.setString(2, user.getPassword());
-
-                long current_version = user.getVersion();
-                long next_version = current_version + 1;
-
-                uUser.setLong(3, next_version);
-                uUser.setInt(4, user.getKey());
-                uUser.setLong(5, current_version);
-
-                if (uUser.executeUpdate() == 0) {
-                    throw new OptimisticLockException(user);
-                } else {
-                    user.setVersion(next_version);
-                }  */
+           
             } else { //insert
                 
                 
@@ -211,11 +190,7 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
                 if (iRichiesta.executeUpdate() == 1) {
         
                     
-                    //per leggere la chiave generata dal database
-                    //per il record appena inserito, usiamo il metodo
-                    //getGeneratedKeys sullo statement.
-                    //to read the generated record key from the database
-                    //we use the getGeneratedKeys method on the same statement
+                
                     try ( ResultSet keys = iRichiesta.getGeneratedKeys()) {
                         //il valore restituito è un ResultSet con un record
                         //per ciascuna chiave generata (uno solo nel nostro caso)
@@ -242,21 +217,10 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
                 ((DataItemProxy) richiestaAcquisto).setModified(false);
             }
         } catch (SQLException | OptimisticLockException ex) {
-            throw new DataException("Unable to store user", ex);
+            throw new DataException("impossibile memorizzare richiestaAcquisto", ex);
         }
     }
     
 
-    @Override
-    public void updateStatoRichiesta(int richiestaAcquistoKey, StatoRichiesta statoRichiesta) throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateStatoRichiesta'");
-    }
-
-    @Override
-    public void deleteRichiestaAcquisto(int richiestaAcquistoKey) throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteRichiestaAcquisto'");
-    }
     
 }

@@ -37,7 +37,7 @@ public class AdminHome extends WebmarketBaseController{
                     
                     ((WebmarketDataLayer) request.getAttribute("datalayer")).getUtenteDAO().storeUtente(u);
                            } catch (DataException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
-                            
+                            handleError(ex, request, response);
                     }
     }
     private void action_logout(HttpServletRequest request,HttpServletResponse response){

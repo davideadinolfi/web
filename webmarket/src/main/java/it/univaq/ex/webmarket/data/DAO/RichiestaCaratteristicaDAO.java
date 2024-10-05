@@ -10,7 +10,7 @@ import it.univaq.framework.data.DataException;
 
 public interface RichiestaCaratteristicaDAO {
  
-     public List<RichiestaCaratteristica> getRichiestaCaratteristiche(RichiestaAcquisto r);
+     public List<RichiestaCaratteristica> getRichiestaCaratteristiche(RichiestaAcquisto r)throws DataException;
 
       void storeCaratteristicaRichiesta(Caratteristica caratteristica,int richestaKey,String descrizione) throws DataException,SQLException;
 

@@ -45,7 +45,7 @@ public class PropostaAcquistoDAOmysql extends DAO implements PropostaAcquistoDAO
             gPropostaAcquistoByTecnico=connection.prepareStatement("SELECT proposta_acquisto.* FROM proposta_acquisto INNER JOIN richiesta_acquisto ON proposta_acquisto.id_richiesta_acquisto=richiesta_acquisto.id WHERE richiesta_acquisto.id_tecnico=?");
         }
          catch (SQLException e) {
-            throw new DataException("errore di inizializzazione di propostaAcquisto",e);
+            throw new DataException("errore di inizializzazione datalayer di propostaAcquisto",e);
         }
 
     }
@@ -55,28 +55,27 @@ public class PropostaAcquistoDAOmysql extends DAO implements PropostaAcquistoDAO
         return new PropostaAcquistoProxy(getDataLayer());
     }
 
-    @Override
-    public PropostaAcquisto createPropostaAcquisto(ResultSet rs){
+
+    public PropostaAcquisto createPropostaAcquisto(ResultSet rs) throws DataException {
         PropostaAcquisto p=createPropostaAcquisto();
       
-        try {
-            FileWriter file=new FileWriter("D:/roba//uni/webmarket/webmarket/log.txt");
-            file.write("ciaoogrrrrr");
-            file.close();
-            p.setKey(rs.getInt("id"));
-            p.setRichiestaAcquisto((RichiestaAcquisto)((WebmarketDataLayer)dataLayer).getRichiestaAcquistoDAO().getRichiestaAcquisto(rs.getInt("id_richiesta_acquisto")));
-            p.setNomeProduttore(rs.getString("nome_produttore"));
-            p.setNomeProdotto(rs.getString("nome_prodotto"));
-            p.setCodiceProdotto(rs.getString("codice_prodotto"));
-            p.setPrezzo(rs.getInt("prezzo"));
-            p.setUrl(rs.getString("URL"));
-            p.setNote(rs.getString("note"));
-            p.setStatoProposta(rs.getString("stato_proposta"));
-            p.setNotaRespinta(rs.getString("nota_respinta"));
-        } catch (DataException | SQLException | IOException e )  {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        
+            try {
+                p.setKey(rs.getInt("id"));
+                p.setRichiestaAcquisto((RichiestaAcquisto)((WebmarketDataLayer)dataLayer).getRichiestaAcquistoDAO().getRichiestaAcquisto(rs.getInt("id_richiesta_acquisto")));
+                p.setNomeProduttore(rs.getString("nome_produttore"));
+                p.setNomeProdotto(rs.getString("nome_prodotto"));
+                p.setCodiceProdotto(rs.getString("codice_prodotto"));
+                p.setPrezzo(rs.getInt("prezzo"));
+                p.setUrl(rs.getString("URL"));
+                p.setNote(rs.getString("note"));
+                p.setStatoProposta(rs.getString("stato_proposta"));
+                p.setNotaRespinta(rs.getString("nota_respinta"));
+            } catch (SQLException | DataException e) {
+                throw new DataException("impossibile creare propostaAcquisto",e);
+            }
+
+       
         
         
         return p;
@@ -94,8 +93,7 @@ public class PropostaAcquistoDAOmysql extends DAO implements PropostaAcquistoDAO
             }
             
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new DataException("impossibile ritornare la lista di proposteAcquisto",e);
         }
         return list;
     }
@@ -112,8 +110,7 @@ public class PropostaAcquistoDAOmysql extends DAO implements PropostaAcquistoDAO
             }
             
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new DataException("impossibile ritornare la lista di proposteAcquisto",e);
         }
         return list;
     }
@@ -127,23 +124,12 @@ public class PropostaAcquistoDAOmysql extends DAO implements PropostaAcquistoDAO
                 return createPropostaAcquisto(rs);
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new DataException("impossibile ritornare propostaAcquisto",e);
         }
-        return null;
+        
     }
 
-    @Override
-    public List<PropostaAcquisto> getProposteAcquisto() throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProposteAcquisto'");
-    }
 
-    @Override
-    public List<PropostaAcquisto> getProposteAcquistoByRichiesta(int richiestaAcquistoKey) throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProposteAcquistoByRichiesta'");
-    }
 
     @Override
     public void storePropostaAcquisto(PropostaAcquisto propostaAcquisto) throws DataException {
@@ -172,22 +158,7 @@ public class PropostaAcquistoDAOmysql extends DAO implements PropostaAcquistoDAO
                         ((DataItemProxy) propostaAcquisto).setModified(false);
                     }
                 }
-                /* 
-                uUser.setString(1, user.getEmail());
-                uUser.setString(2, user.getPassword());
-
-                long current_version = user.getVersion();
-                long next_version = current_version + 1;
-
-                uUser.setLong(3, next_version);
-                uUser.setInt(4, user.getKey());
-                uUser.setLong(5, current_version);
-
-                if (uUser.executeUpdate() == 0) {
-                    throw new OptimisticLockException(user);
-                } else {
-                    user.setVersion(next_version);
-                }  */
+        
             } else { //insert
                 iPropostaAcquisto.setInt(1, propostaAcquisto.getRichiestaAcquisto().getKey());
                 iPropostaAcquisto.setString(2, propostaAcquisto.getNomeProduttore());
@@ -199,13 +170,6 @@ public class PropostaAcquistoDAOmysql extends DAO implements PropostaAcquistoDAO
                 iPropostaAcquisto.setString(8, propostaAcquisto.getStatoProposta().getValue());
                 iPropostaAcquisto.setString(9, propostaAcquisto.getNotaRespinta());
                 if (iPropostaAcquisto.executeUpdate() == 1) {
-        
-                    
-                    //per leggere la chiave generata dal database
-                    //per il record appena inserito, usiamo il metodo
-                    //getGeneratedKeys sullo statement.
-                    //to read the generated record key from the database
-                    //we use the getGeneratedKeys method on the same statement
                     try ( ResultSet keys = iPropostaAcquisto.getGeneratedKeys()) {
                         //il valore restituito è un ResultSet con un record
                         //per ciascuna chiave generata (uno solo nel nostro caso)
@@ -228,25 +192,13 @@ public class PropostaAcquistoDAOmysql extends DAO implements PropostaAcquistoDAO
                 }
             }
 
-         //   if (propostaAcquisto instanceof DataItemProxy) {
-         //       ((DataItemProxy) propostaAcquisto).setModified(false);
-      //      }
+         
         } catch (SQLException | OptimisticLockException ex) {
-            throw new DataException("Unable to store user", ex);
+            throw new DataException("impossibile memorizzare propostaAcquisto", ex);
         }
     }
 
-    @Override
-    public void updateStatoProposta(int propostaAcquistoKey, StatoProposta statoProposta) throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateStatoProposta'");
-    }
 
-    @Override
-    public void deletePropostaAcquisto(int propostaAcquistoKey) throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletePropostaAcquisto'");
-    }
 
 
 

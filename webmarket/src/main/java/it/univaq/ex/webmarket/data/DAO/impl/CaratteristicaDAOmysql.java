@@ -22,25 +22,20 @@ import it.univaq.framework.data.DataLayer;
 public class CaratteristicaDAOmysql extends DAO implements CaratteristicaDAO{
 
     private PreparedStatement gCaratteristicheByCategoria;
-    private PreparedStatement gCaratteristica;
-    private PreparedStatement iCaratteristicheRichiesta;
-    private PreparedStatement gCaratteristicheRichiesta;
+
 
     public CaratteristicaDAOmysql(DataLayer d) {
         super(d);
-        //TODO Auto-generated constructor stub
     }
 
     public void init() throws DataException{
         try{
             super.init();
-            gCaratteristicheByCategoria= connection.prepareStatement("SELECT * FROM `caratteristica` WHERE id_categoria=?");
-            gCaratteristica=connection.prepareStatement("SELECT * FROM 'caratteristica' WHERE ID=?");
-           
-            gCaratteristicheRichiesta=connection.prepareStatement("select * FROM richiesta_caratteristica where id_richiesta_acquisto=?");
+            gCaratteristicheByCategoria= connection.prepareStatement("WITH RECURSIVE CategoriaAncestors AS ( SELECT id,nome,descrizione,id_categoriaPadre FROM categoria WHERE id = ?  UNION ALL SELECT c.id,c.nome,c.descrizione,c.id_categoriaPadre FROM categoria c JOIN CategoriaAncestors ca ON c.id = ca.id_categoriaPadre ) SELECT * FROM caratteristica WHERE id_categoria IN (SELECT id FROM CategoriaAncestors);");
+
         }
         catch(SQLException e){
-            throw new DataException("errore caratteristica DAO");
+            throw new DataException("errore di inizializzazione del datalayer caratteristica",e);
         }
     }
 
@@ -58,21 +53,11 @@ public class CaratteristicaDAOmysql extends DAO implements CaratteristicaDAO{
             return c;
         }
         catch(SQLException e){
-            throw new DataException("capperetti");
+            throw new DataException("impossibile creare caratteristica dal resultSet",e);
         }
     }
 
-    @Override
-    public Caratteristica getCaratteristica(int caratteristicaKey) throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCaratteristica'");
-    }
 
-    @Override
-    public List<Caratteristica> getCaratteristiche(int key) throws DataException {
-        throw new UnsupportedOperationException("capperetti");
-    }
-        
 
     @Override
     public List<Caratteristica> getCaratteristicheByCategoria(int key) throws DataException {
@@ -106,7 +91,7 @@ public class CaratteristicaDAOmysql extends DAO implements CaratteristicaDAO{
                     }
                 }
             } catch (SQLException ex) {
-                throw new DataException("Unable to load user by ID", ex);
+                throw new DataException("impossibile ritornare la lista delle caratteristiche", ex);
             
         
         
@@ -119,10 +104,5 @@ public class CaratteristicaDAOmysql extends DAO implements CaratteristicaDAO{
 
  
 
-    @Override
-    public void deleteCaratteristica(int caratteristicaKey) throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteCaratteristica'");
-    }
-    
+ 
 }

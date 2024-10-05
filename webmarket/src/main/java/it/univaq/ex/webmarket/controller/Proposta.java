@@ -24,14 +24,10 @@ public class Proposta extends WebmarketBaseController{
         TemplateResult result = new TemplateResult(getServletContext());
         request.setAttribute("referrer", request.getParameter("referrer"));
         try {
-            FileWriter file=new FileWriter("D:/roba//uni/webmarket/webmarket/log.txt");
-            file.write("ciaoo"+request.getParameter("proposta"));
-            file.close();
             PropostaAcquisto p=((WebmarketDataLayer) request.getAttribute("datalayer")).getPropostaAcquistoDAO().getPropostaAcquisto(Integer.parseInt(request.getParameter("proposta")));
             request.setAttribute("proposta", p);
         } catch (NumberFormatException | DataException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            handleError(e, request, response);
         }
     
         result.activate("proposta.ftl.html", request, response);
@@ -106,7 +102,7 @@ public class Proposta extends WebmarketBaseController{
             action_default(request, response);
             }
             catch(Exception e){
-
+                handleError(e, request, response);
             }
         } 
     }

@@ -22,14 +22,14 @@ public class RichiestaCaratteristicaDAOmysql extends DAO implements RichiestaCar
 
     PreparedStatement gRichiestaCaratteristiche;
     PreparedStatement iCaratteristicheRichiesta;
-    public void init(){
+    public void init() throws DataException{
        try{
             super.init();
             gRichiestaCaratteristiche=connection.prepareStatement("SELECT * FROM richiesta_caratteristica WHERE id_richiesta_acquisto=?");
             iCaratteristicheRichiesta=connection.prepareStatement("INSERT INTO richiesta_caratteristica(id_richiesta_acquisto,id_caratteristica,specifica) VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS);
        }
-       catch(Exception e){
-
+       catch(SQLException  | DataException e){
+        throw new DataException("impossibile inizializzare il datalayer di richiestaCaratteristica",e);
        }
 
     }
@@ -37,14 +37,14 @@ public class RichiestaCaratteristicaDAOmysql extends DAO implements RichiestaCar
     public RichiestaCaratteristicaDAOmysql(DataLayer d) {
         super(d);
         
-        //TODO Auto-generated constructor stub
+        
     }
 
     public RichiestaCaratteristica createRichiestaCaratteristica(){
         return new RichiestaCaratteristicaProxy(dataLayer);
     }
 
-    public RichiestaCaratteristica createRichiestaCaratteristica(ResultSet rs){
+    public RichiestaCaratteristica createRichiestaCaratteristica(ResultSet rs) throws DataException{
         RichiestaCaratteristica rc=(RichiestaCaratteristicaProxy) createRichiestaCaratteristica();
         try {
             rc.setKey(rs.getInt(1));
@@ -52,19 +52,17 @@ public class RichiestaCaratteristicaDAOmysql extends DAO implements RichiestaCar
             rc.setCaratteristica(null);
             rc.setSpecifica(rs.getString(4));
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new DataException("impossibile creare richiestaCaratteristica dal resultSet",e);
         }
         return rc;
     }
     
-    public List<RichiestaCaratteristica> getRichiestaCaratteristiche(RichiestaAcquisto r){
+    public List<RichiestaCaratteristica> getRichiestaCaratteristiche(RichiestaAcquisto r) throws DataException{
         ArrayList<RichiestaCaratteristica> l= new ArrayList<RichiestaCaratteristica>();
         try {
             gRichiestaCaratteristiche.setInt(1, r.getKey());
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new DataException("impossibile inizializzare il preparedStatement",e);
         }
         RichiestaCaratteristica rc;
         try(ResultSet rs=gRichiestaCaratteristiche.executeQuery()){
@@ -76,8 +74,8 @@ public class RichiestaCaratteristicaDAOmysql extends DAO implements RichiestaCar
                         l.add(rc);
             }
         }
-        catch(Exception e){
-            //TODO
+        catch(SQLException e){
+            throw new DataException("impossibile ritornare la lista di richiestaCaratteristica",e);
         }
 
         return l;
@@ -90,7 +88,7 @@ public class RichiestaCaratteristicaDAOmysql extends DAO implements RichiestaCar
             iCaratteristicheRichiesta.setString(3, descrizione);
 
         } catch (SQLException e) {
-            //TODO
+            throw new DataException("impossibile inizializzare il preparedStatement",e);
         }
 
         if (iCaratteristicheRichiesta.executeUpdate() == 1) {
@@ -106,6 +104,9 @@ public class RichiestaCaratteristicaDAOmysql extends DAO implements RichiestaCar
                         //per ciascuna chiave generata (uno solo nel nostro caso)
                         //the returned value is a ResultSet with a distinct record for
                         //each generated key (only one in our case)
+                        }
+                        catch(SQLException e){
+                            throw new DataException("impossibile memorizzare richiestaCaratteristica",e);
                         }
         }
                

@@ -28,8 +28,7 @@ public class CategoriaDAOmysql extends DAO implements CategoriaDAO {
             sCategorie = connection.prepareStatement("SELECT * FROM categoria");
             sCategoria = connection.prepareStatement("SELECT * FROM categoria WHERE ID=?");
         } catch (SQLException e) {
-            
-            e.printStackTrace();
+            throw new DataException("errore nel DAO");
         }
     }
 
@@ -39,7 +38,7 @@ public class CategoriaDAOmysql extends DAO implements CategoriaDAO {
     }
 
  
-    private CategoriaProxy createCategoria(ResultSet rs) {
+    private CategoriaProxy createCategoria(ResultSet rs) throws DataException{
         CategoriaProxy c = (CategoriaProxy) createCategoria();
         try {
             c.setNome(rs.getString("nome"));
@@ -47,8 +46,8 @@ public class CategoriaDAOmysql extends DAO implements CategoriaDAO {
             c.setDescrizione(rs.getString("descrizione"));
             c.setKey(rs.getInt("id"));
         } 
-        catch(Exception e){
-
+        catch(SQLException e){
+            throw new DataException("errore nel DAO");
         }
         return c;
     }
@@ -58,7 +57,7 @@ public class CategoriaDAOmysql extends DAO implements CategoriaDAO {
         try {
             sCategoria.setInt(1, categoriaKey);
         } catch (SQLException e) {
-            //TODO
+            throw new DataException("errore nel DAO");
         }
         try(ResultSet rs = sCategoria.executeQuery()){
             if(rs.next()){
@@ -68,7 +67,7 @@ public class CategoriaDAOmysql extends DAO implements CategoriaDAO {
             }
         }
         catch(Exception e){
-            //TODO
+            throw new DataException("errore nel DAO");
         }
         return null;
         
@@ -85,33 +84,14 @@ public class CategoriaDAOmysql extends DAO implements CategoriaDAO {
 
         }
         catch(Exception e){
-
+            throw new DataException("errore nel DAO");
         }
         return list;
             
         };
             
        
-        
-
-    @Override
-    public List<Categoria> getSottoCategorie(int categoriaPadreKey) throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getSottoCategorie'");
-    }
-
-    @Override
-    public void storeCategoria(Categoria categoria) throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'storeCategoria'");
-    }
-
-    @Override
-    public void deleteCategoria(int categoriaKey) throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteCategoria'");
-    }
-
+    
     @Override
     public Categoria createCategoria() {
         return new CategoriaProxy(getDataLayer());

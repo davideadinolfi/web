@@ -48,8 +48,7 @@ public class CreaProposta extends WebmarketBaseController{
             dataLayer.getPropostaAcquistoDAO().storePropostaAcquisto(p);
             response.sendRedirect("tecnicoHome");
         } catch (NumberFormatException | DataException | IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            handleError(e, request, response);
         }
         
         
@@ -68,8 +67,8 @@ public class CreaProposta extends WebmarketBaseController{
                 action_creaProposta(request,response);
             }
         }
-        catch(Exception e){
-
+        catch(Exception ex){
+            handleError(ex, request, response);
         }
     }
     

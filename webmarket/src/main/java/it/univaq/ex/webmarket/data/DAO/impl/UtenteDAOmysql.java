@@ -39,7 +39,7 @@ public class UtenteDAOmysql extends DAO implements UtenteDAO{
             iUser = connection.prepareStatement("INSERT INTO utenti (email,password,nome,cognome,ruolo) VALUES(?,?,?,?,?)" ,Statement.RETURN_GENERATED_KEYS  );
             uUser = connection.prepareStatement("UPDATE utenti SET email=?,password=?,version=? WHERE ID=? and version=?");
         } catch (SQLException ex) {
-            throw new DataException("Error initializing utente data layer", ex);
+            throw new DataException("errore di inizializzazione del datalayer utente", ex);
         }
     }
 
@@ -54,7 +54,7 @@ public class UtenteDAOmysql extends DAO implements UtenteDAO{
             uUser.close();
 
         } catch (SQLException ex) {
-            //
+            throw new DataException("Errore di chiusura dei preparedStatements", ex);
         }
         super.destroy();
     }
@@ -131,11 +131,7 @@ public class UtenteDAOmysql extends DAO implements UtenteDAO{
         return u;
     }
 
-    @Override
-    public List<Utente> getUtenti() throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUtenti'");
-    }
+
 
     @Override
     public Utente getUtenteByEmail(String username) throws DataException {
@@ -229,10 +225,6 @@ public class UtenteDAOmysql extends DAO implements UtenteDAO{
         }
     }
 
-    @Override
-    public void deleteUtente(int utenteKey) throws DataException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteUtente'");
-    }
+ 
     
 }

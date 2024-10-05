@@ -35,8 +35,7 @@ public class CreaRichiesta extends WebmarketBaseController{
             request.getSession().setAttribute("caratteristiche", l);
             
         } catch (NumberFormatException | DataException e) {
-                //TODO
-                e.printStackTrace();
+            handleError(e, request, response);
         }
         
         result.activate("creaRichiesta.ftl.html", request, response);
@@ -51,7 +50,7 @@ public class CreaRichiesta extends WebmarketBaseController{
             action_default(request, response);
         }
         catch(Exception e){
-
+            handleError(e, request, response);
         }
     }
     

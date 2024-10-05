@@ -26,14 +26,13 @@ public class Richiesta extends WebmarketBaseController{
             RichiestaAcquisto r=((WebmarketDataLayer) request.getAttribute("datalayer")).getRichiestaAcquistoDAO().getRichiestaAcquisto(Integer.parseInt(request.getParameter("richiesta")));
             request.setAttribute("richiesta", r);
         } catch (NumberFormatException | DataException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            handleError(e, request, response);
         }
         if(((Utente)request.getSession().getAttribute("user")).getRuolo().getValue().equals("tecnico"))
             request.setAttribute("tecnico", true);
         loadCaratteristiche(request, response);
         result.activate("richiesta.ftl.html", request, response);
-        result.activate("listaCaratteristiche.ftl.html", request, response);
+        
     }
 
     private void action_assegnaRichiesta(HttpServletRequest request, HttpServletResponse response){
@@ -56,8 +55,7 @@ public class Richiesta extends WebmarketBaseController{
             request.setAttribute("caratteristiche", l);
             request.getSession().setAttribute("caratteristiche", l);
         } catch (NumberFormatException | DataException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            handleError(e, request, response);
         }
         
     }
