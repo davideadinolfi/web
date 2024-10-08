@@ -106,6 +106,7 @@ public class Login extends WebmarketBaseController {
         try {
             if(request.getParameter("logout") != null){
                 SecurityHelpers.disposeSession(request);
+        
             }
             if (request.getParameter("login") != null) {
                 action_login(request, response);

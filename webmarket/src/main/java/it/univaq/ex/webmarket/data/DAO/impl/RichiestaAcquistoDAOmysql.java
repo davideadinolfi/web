@@ -55,6 +55,25 @@ public class RichiestaAcquistoDAOmysql extends DAO implements RichiestaAcquistoD
         }
     }
 
+    
+    @Override
+    public void destroy() throws DataException {
+        //anche chiudere i PreparedStamenent è una buona pratica...
+        //also closing PreparedStamenents is a good practice...
+        try {
+            iRichiesta.close();
+            sRichieste.close();
+            sRichiestaByUser.close();
+            sRichiestaByid.close();
+            sRichiesteByTecnico.close();
+            sRichiesteSenzaTecnico.close();
+            uRichiesta.close();
+        } catch (SQLException ex) {
+            throw new DataException("Errore di chiusura dei preparedStatements", ex);
+        }
+        super.destroy();
+    }
+
     private RichiestaAcquistoProxy createRichiestaAcquisto(ResultSet rs)throws DataException{
         try {
             

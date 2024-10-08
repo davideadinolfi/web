@@ -34,6 +34,19 @@ public class RichiestaCaratteristicaDAOmysql extends DAO implements RichiestaCar
 
     }
 
+    @Override
+    public void destroy() throws DataException {
+        //anche chiudere i PreparedStamenent è una buona pratica...
+        //also closing PreparedStamenents is a good practice...
+        try {
+            gRichiestaCaratteristiche.close();
+            iCaratteristicheRichiesta.close();
+        } catch (SQLException ex) {
+            throw new DataException("Errore di chiusura dei preparedStatements", ex);
+        }
+        super.destroy();
+    }
+
     public RichiestaCaratteristicaDAOmysql(DataLayer d) {
         super(d);
         

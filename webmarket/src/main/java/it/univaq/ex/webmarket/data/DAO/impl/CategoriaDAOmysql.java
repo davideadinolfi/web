@@ -28,13 +28,25 @@ public class CategoriaDAOmysql extends DAO implements CategoriaDAO {
             sCategorie = connection.prepareStatement("SELECT * FROM categoria");
             sCategoria = connection.prepareStatement("SELECT * FROM categoria WHERE ID=?");
         } catch (SQLException e) {
-            throw new DataException("errore nel DAO");
+            throw new DataException("errore di inizializzazione del datalayer categoria",e);
         }
+    }
+
+    @Override
+    public void destroy() throws DataException {
+        //anche chiudere i PreparedStamenent è una buona pratica...
+        //also closing PreparedStamenents is a good practice...
+        try {
+            sCategoria.close();
+            sCategorie.close();
+        } catch (SQLException ex) {
+            throw new DataException("Errore di chiusura dei preparedStatements", ex);
+        }
+        super.destroy();
     }
 
     public CategoriaDAOmysql(DataLayer d) {
         super(d);
-        //TODO Auto-generated constructor stub
     }
 
  
@@ -47,7 +59,7 @@ public class CategoriaDAOmysql extends DAO implements CategoriaDAO {
             c.setKey(rs.getInt("id"));
         } 
         catch(SQLException e){
-            throw new DataException("errore nel DAO");
+            throw new DataException("impossibile creare categoria dal resultSet",e);
         }
         return c;
     }
@@ -57,7 +69,7 @@ public class CategoriaDAOmysql extends DAO implements CategoriaDAO {
         try {
             sCategoria.setInt(1, categoriaKey);
         } catch (SQLException e) {
-            throw new DataException("errore nel DAO");
+            throw new DataException("impossibile settare i placeholder del prepareStatement categoria",e);
         }
         try(ResultSet rs = sCategoria.executeQuery()){
             if(rs.next()){
@@ -67,7 +79,7 @@ public class CategoriaDAOmysql extends DAO implements CategoriaDAO {
             }
         }
         catch(Exception e){
-            throw new DataException("errore nel DAO");
+            throw new DataException("impossibile ritornare la categoria",e);
         }
         return null;
         
@@ -84,7 +96,7 @@ public class CategoriaDAOmysql extends DAO implements CategoriaDAO {
 
         }
         catch(Exception e){
-            throw new DataException("errore nel DAO");
+            throw new DataException("impossibile ritornare la lista di categorie",e);
         }
         return list;
             

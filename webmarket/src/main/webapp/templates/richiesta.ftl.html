@@ -4,7 +4,7 @@ ${richiesta.statoRichiesta}
 
 <#if !richiesta.tecnico?? && logininfo.ruolo=="tecnico">
     aodooaooaooo
-    <form method="post" action="richiesta"> <input type="submit" value="assegna richiesta" name="assegna"/>
+    <form method="post" action="richiesta"> <input class="two columns" type="submit" value="assegna richiesta" name="assegna"/>
         <#-- passo solo la key dell'oggetto perchè non posso passarlo intero -->
         <input type="hidden" name="richiesta" value="${richiesta.key}"/>
     </form>
@@ -12,7 +12,7 @@ ${richiesta.statoRichiesta}
 
 <#if richiesta.tecnico?? && logininfo.ruolo=="tecnico">
     dio cinghiale
-    <form method="post" action="creaProposta"> <input type="submit" value="crea proposta" name="crea proposta"/>
+    <form method="post" action="creaProposta"> <input class="two columns" type="submit" value="crea proposta" name="crea proposta"/>
         <input type="hidden" name="richiesta" value="${richiesta.key}"/>
     </form>
 </#if>

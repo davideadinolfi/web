@@ -18,6 +18,10 @@ body,html {
 
 }
 
+.logout{
+    float: right;
+}
+
 .subtitle {
     font-size: 50%;
 }

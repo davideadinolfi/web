@@ -40,6 +40,18 @@ public class CaratteristicaDAOmysql extends DAO implements CaratteristicaDAO{
     }
 
     @Override
+    public void destroy() throws DataException {
+        //anche chiudere i PreparedStamenent è una buona pratica...
+        //also closing PreparedStamenents is a good practice...
+        try {
+            gCaratteristicheByCategoria.close();
+        } catch (SQLException ex) {
+            throw new DataException("Errore di chiusura dei preparedStatements", ex);
+        }
+        super.destroy();
+    }
+
+    @Override
     public Caratteristica createCaratteristica() {
         return new CaratteristicaProxy(getDataLayer());
     }
