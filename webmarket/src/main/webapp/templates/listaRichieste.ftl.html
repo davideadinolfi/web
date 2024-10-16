@@ -1,10 +1,13 @@
-<p>ciaooooo</p>
+<br></br>
 <#list listaRichieste as i>
 <a href="richiesta?richiesta=${i.key}">
 <div class="row">
-    <div class="four columns clabel">${i.note}  ${i.statoRichiesta} 
+    <div class="four columns clabel" 
+    <#if i.statoRichiesta=="ATTESA_ORDINANTE" && logininfo.ruolo=="utente" > style="color:red;"</#if>
+    <#if i.statoRichiesta=="ATTESA_TECNICO" && logininfo.ruolo=="tecnico" > style="color:red;"</#if>
+    >  note: ${i.note} stato: ${i.statoRichiesta} 
         <#if i.tecnico??> 
-        ${i.tecnico.nome} ${i.tecnico.cognome}   
+        nome tecnico: ${i.tecnico.nome} ${i.tecnico.cognome}   
         <#else>
         tecnico non presente
         </#if>

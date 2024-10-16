@@ -12,6 +12,7 @@ import it.univaq.ex.webmarket.data.model.Caratteristica;
 import it.univaq.ex.webmarket.data.model.PropostaAcquisto;
 import it.univaq.ex.webmarket.data.model.RichiestaAcquisto;
 import it.univaq.ex.webmarket.data.model.StatoProposta;
+import it.univaq.ex.webmarket.data.model.StatoRichiesta;
 import it.univaq.framework.data.DataException;
 import it.univaq.framework.result.TemplateManagerException;
 import it.univaq.framework.result.TemplateResult;
@@ -46,6 +47,8 @@ public class CreaProposta extends WebmarketBaseController{
             p.setStatoProposta(StatoProposta.IN_ATTESA);
             p.setNotaRespinta(null);
             dataLayer.getPropostaAcquistoDAO().storePropostaAcquisto(p);
+            r.setStatoRichiesta(StatoRichiesta.ATTESA_ORDINANTE);
+            dataLayer.getRichiestaAcquistoDAO().storeRichiestaAcquisto(r);
             response.sendRedirect("tecnicoHome");
         } catch (NumberFormatException | DataException | IOException e) {
             handleError(e, request, response);

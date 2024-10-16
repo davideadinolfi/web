@@ -1,9 +1,8 @@
-ciaoo
-${proposta.note}
-${proposta.statoProposta}
-${logininfo.ruolo}
+<p>
+note: ${proposta.note} stato: ${proposta.statoProposta} nome prodotto: ${proposta.nomeProdotto} codice: ${proposta.codiceProdotto} prezzo: ${proposta.prezzo}
+</p>
 
-ciaooooooo
+
 <#if logininfo.ruolo=="tecnico">
     <#if proposta.statoProposta == "APPROVATO">
         <form method="post" action="proposta"> <input type="submit" value="ordina" name="ordina"/>

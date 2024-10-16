@@ -122,16 +122,16 @@ public class RichiestaAcquistoImpl extends DataItemImpl<Integer> implements Rich
 
     public void setStatoRichiesta(String s){
         switch (s) {
-            case "ATTESA_TECNICO":
+            case "attesaTecnico":
             this.statoRichiesta=StatoRichiesta.ATTESA_TECNICO;
             break;
-            case "ATTESA_ORDINANTE":
+            case "attesaOrdinante":
             this.statoRichiesta=StatoRichiesta.ATTESA_ORDINANTE;
             break;
-            case "ORDINATO":
+            case "ordinato":
             this.statoRichiesta=StatoRichiesta.ORDINATO;
                 break;
-        case "CONCLUSO":
+        case "concluso":
         this.statoRichiesta=StatoRichiesta.CONCLUSO;
             default:
                 break;
