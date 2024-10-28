@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.persistence.OptimisticLockException;
 
+import it.univaq.ex.webmarket.controller.Proposta;
 import it.univaq.ex.webmarket.data.DAO.PropostaAcquistoDAO;
 import it.univaq.ex.webmarket.data.model.PropostaAcquisto;
 import it.univaq.ex.webmarket.data.model.RichiestaAcquisto;
@@ -134,10 +135,14 @@ public class PropostaAcquistoDAOmysql extends DAO implements PropostaAcquistoDAO
     @Override
     public PropostaAcquisto getPropostaAcquisto(int propostaAcquistoKey) throws DataException {
         try {
+            if(dataLayer.getCache().has(PropostaAcquisto.class, propostaAcquistoKey))
+                return dataLayer.getCache().get(PropostaAcquisto.class, propostaAcquistoKey);
             gPropostaAcquisto.setInt(1, propostaAcquistoKey);
             try(ResultSet rs = gPropostaAcquisto.executeQuery()){
                 rs.next();
-                return createPropostaAcquisto(rs);
+                PropostaAcquisto p=createPropostaAcquisto(rs);
+                dataLayer.getCache().add(PropostaAcquisto.class, p);
+                return p;
             }
         } catch (SQLException e) {
             throw new DataException("impossibile ritornare propostaAcquisto",e);
@@ -155,7 +160,7 @@ public class PropostaAcquistoDAOmysql extends DAO implements PropostaAcquistoDAO
             if (propostaAcquisto.getKey() != null && propostaAcquisto.getKey() > 0) { //update
                 //non facciamo nulla se l'oggetto è un proxy e indica di non aver subito modifiche
                 //do not store the object if it is a proxy and does not indicate any modification
-                if (propostaAcquisto instanceof DataItemProxy && !((DataItemProxy) propostaAcquisto).isModified()) {
+                if (propostaAcquisto instanceof DataItemProxy && !((DataItemProxy) propostaAcquisto).isModified()){
                     return;
                 }            
                 uPropostaAcquisto.setInt(1, propostaAcquisto.getRichiestaAcquisto().getKey());
@@ -186,7 +191,7 @@ public class PropostaAcquistoDAOmysql extends DAO implements PropostaAcquistoDAO
                 iPropostaAcquisto.setString(8, propostaAcquisto.getStatoProposta().getValue());
                 iPropostaAcquisto.setString(9, propostaAcquisto.getNotaRespinta());
                 if (iPropostaAcquisto.executeUpdate() == 1) {
-                    try ( ResultSet keys = iPropostaAcquisto.getGeneratedKeys()) {
+                    try ( ResultSet keys = iPropostaAcquisto.getGeneratedKeys()){
                         //il valore restituito è un ResultSet con un record
                         //per ciascuna chiave generata (uno solo nel nostro caso)
                         //the returned value is a ResultSet with a distinct record for

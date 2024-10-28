@@ -108,14 +108,6 @@ public class UtenteDAOmysql extends DAO implements UtenteDAO{
                 try ( ResultSet rs = sUserByID.executeQuery()) {
                     
                     if (rs.next()) {
-                        //notare come utilizziamo il costrutture
-                        //"helper" della classe AuthorImpl
-                        //per creare rapidamente un'istanza a
-                        //partire dal record corrente
-                        //note how we use here the helper constructor
-                        //of the AuthorImpl class to quickly
-                        //create an instance from the current record
-                        
                         u = createUtente(rs);
                         
                         //e lo mettiamo anche nella cache

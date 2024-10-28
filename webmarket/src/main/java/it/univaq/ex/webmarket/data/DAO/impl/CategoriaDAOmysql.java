@@ -67,6 +67,8 @@ public class CategoriaDAOmysql extends DAO implements CategoriaDAO {
     @Override
     public Categoria getCategoria(int categoriaKey) throws DataException {
         try {
+            if(dataLayer.getCache().has(Categoria.class, categoriaKey))
+                return dataLayer.getCache().get(Categoria.class, categoriaKey);
             sCategoria.setInt(1, categoriaKey);
         } catch (SQLException e) {
             throw new DataException("impossibile settare i placeholder del prepareStatement categoria",e);
@@ -74,7 +76,7 @@ public class CategoriaDAOmysql extends DAO implements CategoriaDAO {
         try(ResultSet rs = sCategoria.executeQuery()){
             if(rs.next()){
                 Categoria c= createCategoria(rs);
-                
+                dataLayer.getCache().add(Categoria.class, c);
                 return c;
             }
         }
