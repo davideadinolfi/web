@@ -5,10 +5,7 @@
 package it.univaq.framework.data;
 
 
-/**
- *
- * @author Simone
- */
+
 public interface DataItem<KT>{
     KT getKey();
     

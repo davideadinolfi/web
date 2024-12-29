@@ -76,28 +76,11 @@ public class CaratteristicaDAOmysql extends DAO implements CaratteristicaDAO{
         ArrayList<Caratteristica> l=new ArrayList<Caratteristica>();
         Caratteristica c;
         
-            //altrimenti lo carichiamo dal database
-            //otherwise load it from database
             try {
-                
-                gCaratteristicheByCategoria.setInt(1 , key);
-                try ( ResultSet rs = gCaratteristicheByCategoria.executeQuery()) {
-                    
+               gCaratteristicheByCategoria.setInt(1 , key);
+                try ( ResultSet rs = gCaratteristicheByCategoria.executeQuery()) {                
                     while(rs.next()) {
-                        //notare come utilizziamo il costrutture
-                        //"helper" della classe AuthorImpl
-                        //per creare rapidamente un'istanza a
-                        //partire dal record corrente
-                        //note how we use here the helper constructor
-                        //of the AuthorImpl class to quickly
-                        //create an instance from the current record
-                        
                         c = createCaratteristica(rs);
-                        
-                        //e lo mettiamo anche nella cache
-                        //and put it also in the cache
-                        if(!dataLayer.getCache().has(Caratteristica.class, c))
-                            dataLayer.getCache().add(Caratteristica.class, c);
                         l.add(c);
                         
                     }

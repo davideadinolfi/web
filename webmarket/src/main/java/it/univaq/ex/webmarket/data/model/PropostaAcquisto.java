@@ -6,10 +6,7 @@ package it.univaq.ex.webmarket.data.model;
 
 import it.univaq.framework.data.DataItem;
 
-/**
- *
- * @author Simone
- */
+
 public interface PropostaAcquisto extends DataItem<Integer> {
 
     Utente getTecnico();

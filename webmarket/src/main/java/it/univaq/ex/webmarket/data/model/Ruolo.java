@@ -4,10 +4,7 @@
  */
 package it.univaq.ex.webmarket.data.model;
 
-/**
- *
- * @author Simone
- */
+
 public enum Ruolo {
     TECNICO("tecnico"),
     UTENTE("utente"),
